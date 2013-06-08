@@ -12,6 +12,7 @@
 #import "AFNetworking.h"
 #import "LoginVC.h"
 #import "PullToRefreshView.h"
+#import "ListInstaCell.h"
 
 @interface InstaVC () {
     
@@ -71,6 +72,11 @@
     return dataArrayWithInsta.count;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 450.0;
+}
+
 #pragma mark DataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -82,15 +88,12 @@
         [self getDataArrayWithInsta];
     }
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    ListInstaCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[ListInstaCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    cell.textLabel.text = dataArrayWithInsta[indexPath.row][@"created_time"];
-    
-    NSURL *url = [[NSURL alloc] initWithString:dataArrayWithInsta[indexPath.row][@"images"][@"low_resolution"][@"url"]];
-    [cell.imageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"Default"]];
-    
+    [cell setDataInCellWithCurrentElement:dataArrayWithInsta[indexPath.row]];
+  
     return cell;
 }
 
