@@ -28,6 +28,13 @@
 		841E19D817631DD200733EC1 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E19CB17631DD200733EC1 /* AFXMLRequestOperation.m */; };
 		841E19D917631DD200733EC1 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E19CD17631DD200733EC1 /* UIImageView+AFNetworking.m */; };
 		841E19DA17631DD200733EC1 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E19D017631DD200733EC1 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		84B0888D1763794E009CB32D /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B088871763794E009CB32D /* arrow.png */; };
+		84B0888E1763794E009CB32D /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B088881763794E009CB32D /* arrow@2x.png */; };
+		84B0888F1763794E009CB32D /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 84B088891763794E009CB32D /* pop.wav */; };
+		84B088901763794E009CB32D /* psst1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 84B0888A1763794E009CB32D /* psst1.wav */; };
+		84B088911763794E009CB32D /* PullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B0888C1763794E009CB32D /* PullToRefreshView.m */; };
+		84B0889317637A91009CB32D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B0889217637A91009CB32D /* AudioToolbox.framework */; };
+		84B0889917637B03009CB32D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B0889817637B03009CB32D /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +76,14 @@
 		841E19CD17631DD200733EC1 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
 		841E19CF17631DD200733EC1 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		841E19D017631DD200733EC1 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		84B088871763794E009CB32D /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
+		84B088881763794E009CB32D /* arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@2x.png"; sourceTree = "<group>"; };
+		84B088891763794E009CB32D /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop.wav; sourceTree = "<group>"; };
+		84B0888A1763794E009CB32D /* psst1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = psst1.wav; sourceTree = "<group>"; };
+		84B0888B1763794E009CB32D /* PullToRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullToRefreshView.h; sourceTree = "<group>"; };
+		84B0888C1763794E009CB32D /* PullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshView.m; sourceTree = "<group>"; };
+		84B0889217637A91009CB32D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		84B0889817637B03009CB32D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,9 +91,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84B0889317637A91009CB32D /* AudioToolbox.framework in Frameworks */,
 				841E19981763121600733EC1 /* UIKit.framework in Frameworks */,
 				841E199A1763121600733EC1 /* Foundation.framework in Frameworks */,
 				841E199C1763121600733EC1 /* CoreGraphics.framework in Frameworks */,
+				84B0889917637B03009CB32D /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,6 +126,8 @@
 		841E19961763121600733EC1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84B0889217637A91009CB32D /* AudioToolbox.framework */,
+				84B0889817637B03009CB32D /* QuartzCore.framework */,
 				841E19971763121600733EC1 /* UIKit.framework */,
 				841E19991763121600733EC1 /* Foundation.framework */,
 				841E199B1763121600733EC1 /* CoreGraphics.framework */,
@@ -129,6 +148,7 @@
 		841E199E1763121600733EC1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				84B088861763794E009CB32D /* pull */,
 				841E19BA17631DD200733EC1 /* AFNetworking */,
 				841E19CE17631DD200733EC1 /* JSONKit */,
 				841E199F1763121600733EC1 /* Insta-Info.plist */,
@@ -176,6 +196,19 @@
 			);
 			path = JSONKit;
 			sourceTree = "<group>";
+		};
+		84B088861763794E009CB32D /* pull */ = {
+			isa = PBXGroup;
+			children = (
+				84B088871763794E009CB32D /* arrow.png */,
+				84B088881763794E009CB32D /* arrow@2x.png */,
+				84B088891763794E009CB32D /* pop.wav */,
+				84B0888A1763794E009CB32D /* psst1.wav */,
+				84B0888B1763794E009CB32D /* PullToRefreshView.h */,
+				84B0888C1763794E009CB32D /* PullToRefreshView.m */,
+			);
+			path = pull;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -233,6 +266,10 @@
 				841E19AA1763121600733EC1 /* Default.png in Resources */,
 				841E19AC1763121600733EC1 /* Default@2x.png in Resources */,
 				841E19AE1763121600733EC1 /* Default-568h@2x.png in Resources */,
+				84B0888D1763794E009CB32D /* arrow.png in Resources */,
+				84B0888E1763794E009CB32D /* arrow@2x.png in Resources */,
+				84B0888F1763794E009CB32D /* pop.wav in Resources */,
+				84B088901763794E009CB32D /* psst1.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +294,7 @@
 				841E19D817631DD200733EC1 /* AFXMLRequestOperation.m in Sources */,
 				841E19D917631DD200733EC1 /* UIImageView+AFNetworking.m in Sources */,
 				841E19DA17631DD200733EC1 /* JSONKit.m in Sources */,
+				84B088911763794E009CB32D /* PullToRefreshView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,6 +409,7 @@
 				841E19B31763121600733EC1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

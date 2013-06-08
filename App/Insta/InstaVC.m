@@ -6,16 +6,20 @@
 //  Copyright (c) 2013 zav333. All rights reserved.
 //
 
+//Класс отображения перечня фото
+
 #import "InstaVC.h"
 #import "AFNetworking.h"
 #import "LoginVC.h"
+#import "PullToRefreshView.h"
 
 @interface InstaVC () {
     
-    NSMutableArray *data;
+    PullToRefreshView *pull;
+    NSMutableArray *dataArrayWithInsta;
     UITableView *_tableView;
     UIActivityIndicatorView *_activityIndicatorView;
-    NSString *nextPage;
+    NSString *nextPageURL;
 }
 
 @end
@@ -26,8 +30,8 @@
 {
     [super viewDidLoad];
     
-    data = [[NSMutableArray alloc] init];
-    nextPage = [[NSString alloc] init];
+    dataArrayWithInsta = [[NSMutableArray alloc] init];
+    nextPageURL = [[NSString alloc] init];
     
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     toolbar.frame = CGRectMake(0, 0, self.view.frame.size.width, 44);
@@ -36,11 +40,14 @@
     [toolbar setItems:items animated:NO];
     [self.view addSubview:toolbar];
 
-    
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, self.view.frame.size.width, self.view.frame.size.height-44)];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
+    
+    pull = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *) _tableView];
+    [pull setDelegate:self];
+    [_tableView addSubview:pull];
     
     _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     _activityIndicatorView.hidesWhenStopped = YES;
@@ -48,9 +55,10 @@
     [self.view addSubview:_activityIndicatorView];
     [_activityIndicatorView startAnimating];
     
-    [self getData];
+    [self getDataArrayWithInsta];
 }
 
+#pragma mark TableViewDeleagate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -60,38 +68,39 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return data.count;
+    return dataArrayWithInsta.count;
 }
+
+#pragma mark DataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
     
-    if (indexPath.row +1 == data.count) {
-        [self getData];
+    if (indexPath.row +1 == dataArrayWithInsta.count) {
+        [_activityIndicatorView startAnimating];
+        [self getDataArrayWithInsta];
     }
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        //Создание ячейки
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+    cell.textLabel.text = dataArrayWithInsta[indexPath.row][@"created_time"];
     
-    cell.textLabel.text = data[indexPath.row][@"created_time"];
-    
-    NSURL *url = [[NSURL alloc] initWithString:data[indexPath.row][@"images"][@"low_resolution"][@"url"]];
+    NSURL *url = [[NSURL alloc] initWithString:dataArrayWithInsta[indexPath.row][@"images"][@"low_resolution"][@"url"]];
     [cell.imageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"Default"]];
     
     return cell;
 }
 
-- (void)getData {
+- (void)getDataArrayWithInsta {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [userDefaults objectForKey:@"AccessToken"];
     
     NSString *urlString;
-    if (data.count > 0) {
-        urlString = nextPage;
+    if (dataArrayWithInsta.count > 0) {
+        urlString = nextPageURL;
     } else {
         urlString =[NSString stringWithFormat:@"https://api.instagram.com/v1/users/self/feed?count=20&access_token=%@", token];
     }
@@ -101,9 +110,9 @@
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         
-        [data addObjectsFromArray:[JSON objectForKey:@"data"]];
+        [dataArrayWithInsta addObjectsFromArray:[JSON objectForKey:@"data"]];
         
-        nextPage =  [JSON objectForKey:@"pagination"][@"next_url"];
+        nextPageURL =  [JSON objectForKey:@"pagination"][@"next_url"];
         [_activityIndicatorView stopAnimating];
         [_tableView setHidden:NO];
         [_tableView reloadData];
@@ -130,5 +139,19 @@
     [self presentViewController:vc animated:YES completion:nil];
 }
 
+#pragma mark PullDalagate
 
+- (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view;
+{
+    [self reloadTableData];
+}
+
+- (void) reloadTableData
+{
+    [_activityIndicatorView startAnimating];
+    [dataArrayWithInsta removeAllObjects];
+    [self getDataArrayWithInsta];
+    [_tableView reloadData];
+    [pull finishedLoading];
+}
 @end

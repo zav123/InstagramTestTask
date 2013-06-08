@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PullToRefreshView.h"
 
-@interface InstaVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface InstaVC : UIViewController <UITableViewDataSource, UITableViewDelegate, PullToRefreshViewDelegate>
 
 @end
