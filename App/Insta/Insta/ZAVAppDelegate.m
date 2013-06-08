@@ -8,6 +8,7 @@
 
 #import "ZAVAppDelegate.h"
 #import "LoginVC.h"
+#import "InstaVC.h"
 
 @implementation ZAVAppDelegate
 

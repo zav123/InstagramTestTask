@@ -9,16 +9,11 @@
 //authorization Insta
 
 #import "LoginVC.h"
+#import "InstaVC.h"
 
 #define AuthorizationLink @"https://instagram.com/oauth/authorize/?client_id=%@&redirect_uri=%@&response_type=token"
 #define Cliant_ID @"8cdc54227130438f9232c710e74d9258"
 #define Redirect_uri @"http://localhost:8888/MAMP/"
-
-
-
-
-
-
 
 
 @interface LoginVC () {
@@ -62,6 +57,9 @@
             if ([token length] > 0 ) {
                 [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"AccessToken"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
+                
+                InstaVC *vc = [[InstaVC alloc] init];
+                [self presentViewController:vc animated:YES completion:nil];
             }
         }
         return NO;

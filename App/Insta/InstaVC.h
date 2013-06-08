@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface InstaVC : UIViewController
+@interface InstaVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end
