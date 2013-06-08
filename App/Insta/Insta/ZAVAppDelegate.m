@@ -7,14 +7,18 @@
 //
 
 #import "ZAVAppDelegate.h"
+#import "LoginVC.h"
 
 @implementation ZAVAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    
+   LoginVC *vc = [[LoginVC alloc]init];
+    self.window.rootViewController = vc;
+
     [self.window makeKeyAndVisible];
     return YES;
 }
