@@ -14,7 +14,6 @@
 #define Cliant_ID @"324b9a0a3d044e109270bbad54f68ac3"
 #define Redirect_uri @"http://easydevios.blogspot.ru/123"
 
-
 @interface LoginVC () {
     
     UIWebView *_webView;
