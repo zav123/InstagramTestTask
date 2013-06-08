@@ -17,8 +17,18 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     
-   LoginVC *vc = [[LoginVC alloc]init];
-    self.window.rootViewController = vc;
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDefaults objectForKey:@"AccessToken"];
+    
+    if (token.length >0) {
+        InstaVC *vc = [[InstaVC alloc]init];
+        self.window.rootViewController = vc;
+    } else {
+        LoginVC *vc = [[LoginVC alloc]init];
+        self.window.rootViewController = vc;
+    }
+    
+  
 
     [self.window makeKeyAndVisible];
     return YES;

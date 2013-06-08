@@ -29,6 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
 
     _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     NSString *fullURL = [NSString stringWithFormat:AuthorizationLink, Cliant_ID, Redirect_uri];
