@@ -63,12 +63,14 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    
     return 1;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    
     return dataArrayWithInsta.count;
 }
 
@@ -83,7 +85,8 @@
 {
     static NSString *CellIdentifier = @"Cell";
     
-    if (indexPath.row +1 == dataArrayWithInsta.count) {
+    //если добрались до предпоследней ячейки, грузим еще данные
+    if (indexPath.row +2 == dataArrayWithInsta.count) {
         [_activityIndicatorView startAnimating];
         [self getDataArrayWithInsta];
     }
@@ -146,11 +149,13 @@
 
 - (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view;
 {
+    
     [self reloadTableData];
 }
 
 - (void) reloadTableData
 {
+    
     [_activityIndicatorView startAnimating];
     [dataArrayWithInsta removeAllObjects];
     [self getDataArrayWithInsta];
