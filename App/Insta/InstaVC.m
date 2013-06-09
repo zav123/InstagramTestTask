@@ -15,6 +15,7 @@
 #import "ListInstaCell.h"
 #import "ZAVAppDelegate.h"
 #import "Entity.h"
+#import "CurrentInstaVC.h"
 
 @interface InstaVC () {
     
@@ -97,8 +98,9 @@
 {
     static NSString *CellIdentifier = @"Cell";
     
+    int indexMy = indexPath.row;
     //если добрались до предпоследней ячейки, грузим еще данные
-    if (indexPath.row +2 == dataArrayWithInsta.count) {
+    if (indexMy +2 == dataArrayWithInsta.count) {
         [_activityIndicatorView startAnimating];
         [self getDataArrayWithInsta];
     }
@@ -110,6 +112,13 @@
     [cell setDataInCellWithCurrentElement:dataArrayWithInsta[indexPath.row]];
   
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+        
+    CurrentInstaVC *vc = [[CurrentInstaVC alloc] init];
+    vc.currentData = dataArrayWithInsta[indexPath.row];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)getDataArrayWithInsta {

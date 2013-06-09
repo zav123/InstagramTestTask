@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 zav333. All rights reserved.
 //
 
+//ячейка инста, используется в табличном представлении листа инста
+
 #import <UIKit/UIKit.h>
 
 @interface ListInstaCell : UITableViewCell

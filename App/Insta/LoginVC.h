@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 zav333. All rights reserved.
 //
 
+//логинимся в инсту, получаем токен
+
 #import <UIKit/UIKit.h>
 
 @interface LoginVC : UIViewController <UIWebViewDelegate>

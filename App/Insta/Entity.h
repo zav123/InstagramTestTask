@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 zav333. All rights reserved.
 //
 
+//класс для модели БД
+
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 

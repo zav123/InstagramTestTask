@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 zav333. All rights reserved.
 //
 
+//Подробный просмотр инста
+
 #import <UIKit/UIKit.h>
 
 @interface CurrentInstaVC : UIViewController

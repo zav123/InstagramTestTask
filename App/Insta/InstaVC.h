@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 zav333. All rights reserved.
 //
 
+//табличное представление набора инстов
+
 #import <UIKit/UIKit.h>
 #import "PullToRefreshView.h"
 
@@ -13,7 +15,5 @@
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-
-//- (void)saveContext;
 
 @end
