@@ -24,19 +24,6 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [userDefaults objectForKey:@"AccessToken"];
     
-    NSManagedObject *myMO = [NSEntityDescription
-                             insertNewObjectForEntityForName:@"Entity"
-                             inManagedObjectContext:[self managedObjectContext]];
-    
-    [myMO setValue:@"Core Data for iOS and OS X" forKey:@"test"];
-    //    [myMO setValue:@"Simon Allardice" forKey:@"author"];
-    //    [myMO setValue:[NSDate date] forKey:@"releaseDate"];
-    
-    NSError *error = nil;
-    if ( ! [[self managedObjectContext] save:&error]) {
-        NSLog(@"An error %@", error);
-    }
-    
     if (token.length >0) {
         InstaVC *vc = [[InstaVC alloc]init];
         self.window.rootViewController = vc;

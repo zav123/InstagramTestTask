@@ -30,6 +30,7 @@
 		841E19DA17631DD200733EC1 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E19D017631DD200733EC1 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		84AC52A41764605A00B27FA4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AC52A31764605A00B27FA4 /* CoreData.framework */; };
 		84AC52A7176460AB00B27FA4 /* InstaModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84AC52A5176460AB00B27FA4 /* InstaModel.xcdatamodeld */; };
+		84AC52B61764920E00B27FA4 /* Entity.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AC52B51764920E00B27FA4 /* Entity.m */; };
 		84B0888D1763794E009CB32D /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B088871763794E009CB32D /* arrow.png */; };
 		84B0888E1763794E009CB32D /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B088881763794E009CB32D /* arrow@2x.png */; };
 		84B0888F1763794E009CB32D /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 84B088891763794E009CB32D /* pop.wav */; };
@@ -82,6 +83,8 @@
 		841E19D017631DD200733EC1 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		84AC52A31764605A00B27FA4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		84AC52A6176460AB00B27FA4 /* InstaModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = InstaModel.xcdatamodel; sourceTree = "<group>"; };
+		84AC52B41764920E00B27FA4 /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
+		84AC52B51764920E00B27FA4 /* Entity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entity.m; sourceTree = "<group>"; };
 		84B088871763794E009CB32D /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		84B088881763794E009CB32D /* arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@2x.png"; sourceTree = "<group>"; };
 		84B088891763794E009CB32D /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop.wav; sourceTree = "<group>"; };
@@ -117,6 +120,8 @@
 			isa = PBXGroup;
 			children = (
 				84AC52A5176460AB00B27FA4 /* InstaModel.xcdatamodeld */,
+				84AC52B41764920E00B27FA4 /* Entity.h */,
+				84AC52B51764920E00B27FA4 /* Entity.m */,
 				84B0889E17638C02009CB32D /* CurrentInstaVC.h */,
 				84B0889F17638C02009CB32D /* CurrentInstaVC.m */,
 				841E199D1763121600733EC1 /* Insta */,
@@ -323,6 +328,7 @@
 				84B0889C17637E5B009CB32D /* ListInstaCell.m in Sources */,
 				84B088A017638C02009CB32D /* CurrentInstaVC.m in Sources */,
 				84AC52A7176460AB00B27FA4 /* InstaModel.xcdatamodeld in Sources */,
+				84AC52B61764920E00B27FA4 /* Entity.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

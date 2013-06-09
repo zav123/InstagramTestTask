@@ -8,6 +8,7 @@
 
 #import "ListInstaCell.h"
 #import "AFNetworking.h"
+#import "Entity.h"
 
 @implementation ListInstaCell {
     UIImageView *profileImage;
@@ -27,7 +28,7 @@
         generalInstaImage = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMinX(profileImage.frame), CGRectGetMaxY(profileImage.frame) +5, 306, 306)];
         [self.contentView addSubview:generalInstaImage];
         
-        nameWhoAddedImage = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(profileImage.frame) + 10, 25, 200, 15)];
+        nameWhoAddedImage = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(profileImage.frame) + 10, 25, 200, 19)];
         nameWhoAddedImage.numberOfLines = 1;
         nameWhoAddedImage.textColor = [UIColor blueColor];
         nameWhoAddedImage.backgroundColor = [UIColor clearColor];
@@ -45,14 +46,29 @@
     return self;
 }
 
-- (void)setDataInCellWithCurrentElement:(NSDictionary *)data {
+- (void)setDataInCellWithCurrentElement:(id)data {
+    
+    if ([data isKindOfClass:[Entity class]]) {
+        Entity *ent = data;
+        nameWhoAddedImage.text =  ent.from;
+        titleInstaName.text = ent.text;
+        generalInstaImage.image = [self loadImagewithName:ent.idendifier];
+    }
     
     if ([data isKindOfClass:[NSDictionary class]]) {
         if ([data[@"images"] isKindOfClass:[NSDictionary class]]) {
             if ([data[@"images"][@"low_resolution"] isKindOfClass:[NSDictionary class]]) {
-                [generalInstaImage setImageWithURL:[[NSURL alloc] initWithString:data[@"images"][@"low_resolution"][@"url"]] placeholderImage:[UIImage imageNamed:@"Default"]];
+                __unsafe_unretained typeof(self) weakSelf = self;
+                [generalInstaImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:data[@"images"][@"low_resolution"][@"url"]]] placeholderImage:[UIImage imageNamed:@"Default"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                    [weakSelf-> generalInstaImage setImage: image];
+                    [weakSelf saveImage:weakSelf->generalInstaImage.image withName:data[@"id"]];
+                    
+                } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                    NSLog(@"fail");
+                }];
             }
         }
+        
         
         if ([data[@"user"] isKindOfClass:[NSDictionary class]]) {
             [profileImage setImageWithURL:[[NSURL alloc] initWithString:data[@"user"][@"profile_picture"]] placeholderImage:[UIImage imageNamed:@"Default"]];
@@ -60,9 +76,37 @@
         }
         
         if ([data[@"caption"] isKindOfClass:[NSDictionary class]]) {
-         titleInstaName.text = data[@"caption"][@"text"];
+            titleInstaName.text = data[@"caption"][@"text"];
         }
     }
+}
+
+
+- (void)saveImage: (UIImage*)image withName:(NSString *)nameImage
+{
+    if (image != nil)
+    {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                             NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString* path = [documentsDirectory stringByAppendingPathComponent:
+                          nameImage];
+        NSData* data = UIImagePNGRepresentation(image);
+        [data writeToFile:path atomically:YES];
+    }
+    
+}
+
+- (UIImage*)loadImagewithName:(NSString *)nameImage
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                         NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString* path = [documentsDirectory stringByAppendingPathComponent:
+                      nameImage];
+    UIImage* image = [UIImage imageWithContentsOfFile:path];
+    
+    return image;
 }
 
 @end

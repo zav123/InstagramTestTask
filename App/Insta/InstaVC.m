@@ -14,6 +14,7 @@
 #import "PullToRefreshView.h"
 #import "ListInstaCell.h"
 #import "ZAVAppDelegate.h"
+#import "Entity.h"
 
 @interface InstaVC () {
     
@@ -38,7 +39,6 @@
     if (_managedObjectContext == nil)
     {
         _managedObjectContext = [(ZAVAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
-        NSLog(@"After managedObjectContext: %@",  _managedObjectContext);
     }
     
     dataArrayWithInsta = [[NSMutableArray alloc] init];
@@ -65,26 +65,6 @@
     _activityIndicatorView.center = self.view.center;
     [self.view addSubview:_activityIndicatorView];
     [_activityIndicatorView startAnimating];
-    
-    
-    NSError *error = nil;
-    NSManagedObjectContext *context = self.managedObjectContext;
-    if (![context save:&error]) {
-        NSLog(@"Error! %@", error);
-         }
-    
-    NSManagedObject *myMO = [NSEntityDescription
-                             insertNewObjectForEntityForName:@"Entity"
-                             inManagedObjectContext:context];
-    
-    [myMO setValue:@"Uraaaaa" forKey:@"test"];
-//    [myMO setValue:@"Simon Allardice" forKey:@"author"];
-//    [myMO setValue:[NSDate date] forKey:@"releaseDate"];
-    
-    NSError *error1 = nil;
-    if ( ! [[self managedObjectContext] save:&error1]) {
-        NSLog(@"An error %@", error);
-    }
     
     [self getDataArrayWithInsta];
 }
@@ -134,30 +114,65 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [userDefaults objectForKey:@"AccessToken"];
     
-    NSString *urlString;
-    if (dataArrayWithInsta.count > 0) {
-        urlString = nextPageURL;
+    if (![self connectedToInternet]) {
+        
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Entity" inManagedObjectContext:_managedObjectContext];
+        [fetchRequest setEntity:entity];
+        
+        NSError *error = nil;
+        NSArray *fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+        if (fetchedObjects == nil) {
+            
+        }
+        dataArrayWithInsta = [NSArray arrayWithArray:fetchedObjects];
     } else {
-        urlString =[NSString stringWithFormat:@"https://api.instagram.com/v1/users/self/feed?count=20&access_token=%@", token];
+        NSString *urlString;
+        if (dataArrayWithInsta.count > 0) {
+            urlString = nextPageURL;
+        } else {
+            urlString =[NSString stringWithFormat:@"https://api.instagram.com/v1/users/self/feed?count=20&access_token=%@", token];
+        }
+        
+        NSURL *url = [NSURL URLWithString:urlString];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        
+        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            
+            for (id object in [JSON objectForKey:@"data"]) {
+                
+                Entity *entityMY = [NSEntityDescription
+                                    insertNewObjectForEntityForName:@"Entity"
+                                    inManagedObjectContext:self.managedObjectContext];
+                
+                entityMY.from = [object objectForKey:@"user"][@"username"];
+                entityMY.idendifier = object[@"id"];
+                
+                if ([object[@"caption"] isKindOfClass:[NSDictionary class]]) {
+                    entityMY.text = object[@"caption"][@"text"];
+                }
+                
+                NSError *error1 = nil;
+                if ( ! [[self managedObjectContext] save:&error1]) {
+                    NSLog(@"An error %@", error1);
+                }
+                
+            }
+            
+            [dataArrayWithInsta addObjectsFromArray:[JSON objectForKey:@"data"]];
+            
+            nextPageURL =  [JSON objectForKey:@"pagination"][@"next_url"];
+            [_activityIndicatorView stopAnimating];
+            [_tableView setHidden:NO];
+            [_tableView reloadData];
+            
+        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
+        }];
+        
+        [operation start];
+        
     }
-    
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        
-        [dataArrayWithInsta addObjectsFromArray:[JSON objectForKey:@"data"]];
-        
-        nextPageURL =  [JSON objectForKey:@"pagination"][@"next_url"];
-        [_activityIndicatorView stopAnimating];
-        [_tableView setHidden:NO];
-        [_tableView reloadData];
-        
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
-    }];
-    
-    [operation start];
 }
 
 - (void)signOut {
@@ -193,6 +208,15 @@
     [pull finishedLoading];
 }
 
-
+- (BOOL)connectedToInternet
+{
+    NSURL *url=[NSURL URLWithString:@"http://www.google.com"];
+    NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"HEAD"];
+    NSHTTPURLResponse *response;
+    [NSURLConnection sendSynchronousRequest:request returningResponse:&response error: NULL];
+    
+    return ([response statusCode]==200)?YES:NO;
+}
 
 @end

@@ -10,6 +10,6 @@
 
 @interface ListInstaCell : UITableViewCell
 
-- (void)setDataInCellWithCurrentElement:(NSDictionary *)data;
+- (void)setDataInCellWithCurrentElement:(id)data;
 
 @end

@@ -5,6 +5,8 @@
 #import <Availability.h>
 #import <CoreData/CoreData.h>
 
+#define DLog(fmt, ...) NSLog((@"[%@|%@] " fmt), NSStringFromClass([self class]), NSStringFromSelector(_cmd), ##__VA_ARGS__)
+
 #ifndef __IPHONE_3_0
 #warning "This project uses features only available in iOS SDK 3.0 and later."
 #endif
