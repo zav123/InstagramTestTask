@@ -47,7 +47,9 @@
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     toolbar.frame = CGRectMake(0, 0, self.view.frame.size.width, 44);
     UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"Sign out" style:UIBarButtonItemStyleBordered target:self action:@selector(signOut)];
-    NSArray *items = [NSArray arrayWithObjects:item1, nil];
+    UIBarButtonItem *flexiableItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    UIBarButtonItem *item2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reloadTableData)];
+    NSArray *items = [NSArray arrayWithObjects:item1, flexiableItem, item2, nil];
     [toolbar setItems:items animated:NO];
     [self.view addSubview:toolbar];
 
@@ -125,10 +127,29 @@
         if (fetchedObjects == nil) {
             
         }
-        dataArrayWithInsta = [NSArray arrayWithArray:fetchedObjects];
+        //dataArrayWithInsta = [NSArray arrayWithArray:fetchedObjects];
+        [dataArrayWithInsta addObjectsFromArray:fetchedObjects];
+        
+        [_activityIndicatorView stopAnimating];
+        [_tableView setHidden:NO];
+        [_tableView reloadData];
+     
     } else {
+        NSFetchRequest * allCars = [[NSFetchRequest alloc] init];
+        [allCars setEntity:[NSEntityDescription entityForName:@"Entity" inManagedObjectContext:_managedObjectContext]];
+        [allCars setIncludesPropertyValues:NO]; //only fetch the managedObjectID
+        
+        NSError * error = nil;
+        NSArray * cars = [_managedObjectContext executeFetchRequest:allCars error:&error];
+        //error handling goes here
+        for (NSManagedObject * car in cars) {
+            [_managedObjectContext deleteObject:car];
+        }
+        NSError *saveError = nil;
+        [_managedObjectContext save:&saveError];
+        
         NSString *urlString;
-        if (dataArrayWithInsta.count > 0) {
+        if (dataArrayWithInsta.count > 0 && ![dataArrayWithInsta[0] isKindOfClass:[Entity class]]) {
             urlString = nextPageURL;
         } else {
             urlString =[NSString stringWithFormat:@"https://api.instagram.com/v1/users/self/feed?count=20&access_token=%@", token];
@@ -158,16 +179,17 @@
                 }
                 
             }
-            
-            [dataArrayWithInsta addObjectsFromArray:[JSON objectForKey:@"data"]];
-            
-            nextPageURL =  [JSON objectForKey:@"pagination"][@"next_url"];
+            if ([JSON objectForKey:@"data"]) {
+                [dataArrayWithInsta addObjectsFromArray:[JSON objectForKey:@"data"]];
+                nextPageURL =  [JSON objectForKey:@"pagination"][@"next_url"];
+            }
+
             [_activityIndicatorView stopAnimating];
             [_tableView setHidden:NO];
             [_tableView reloadData];
             
         } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-            NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
+       
         }];
         
         [operation start];
@@ -200,12 +222,14 @@
 
 - (void) reloadTableData
 {
-    
+    if ([self connectedToInternet]) {
     [_activityIndicatorView startAnimating];
     [dataArrayWithInsta removeAllObjects];
     [self getDataArrayWithInsta];
     [_tableView reloadData];
+    }
     [pull finishedLoading];
+        
 }
 
 - (BOOL)connectedToInternet
@@ -218,5 +242,6 @@
     
     return ([response statusCode]==200)?YES:NO;
 }
+
 
 @end
