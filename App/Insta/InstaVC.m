@@ -178,6 +178,14 @@
                 entityMY.from = [object objectForKey:@"user"][@"username"];
                 entityMY.idendifier = object[@"id"];
                 
+                NSLog(@"%@", [object objectForKey:@"user_has_liked"]);
+                
+                if ([object objectForKey:@"user_has_liked"] == [NSNumber numberWithBool:YES]) {
+                    entityMY.like = [NSNumber numberWithBool:YES];
+                } else {
+                    entityMY.like = [NSNumber numberWithBool:NO];
+                }
+                
                 if ([object[@"caption"] isKindOfClass:[NSDictionary class]]) {
                     entityMY.text = object[@"caption"][@"text"];
                 }

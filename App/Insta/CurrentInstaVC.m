@@ -8,6 +8,9 @@
 
 #import "CurrentInstaVC.h"
 #import "AFNetworking.h"
+#import "ZAVAppDelegate.h"
+#import "LekeAndDislike.h"
+#import "Entity.h"
 
 @interface CurrentInstaVC () {
     
@@ -19,6 +22,7 @@
     NSArray *likesArr;
     UILabel *dateLabel;
     UIButton *likeOrDislikeButton;
+    NSString *identifier;
     
 }
 
@@ -26,9 +30,16 @@
 
 @implementation CurrentInstaVC
 
+@synthesize managedObjectContext = _managedObjectContext;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if (_managedObjectContext == nil)
+    {
+        _managedObjectContext = [(ZAVAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    }
     
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -75,17 +86,10 @@
     titleInstaName.textAlignment = NSTextAlignmentLeft;
     [headerTableView addSubview:titleInstaName];
     
-    if ([_currentData[@"likes"] isKindOfClass:[NSDictionary class]]) {
-        if ([_currentData[@"likes"][@"data"] isKindOfClass:[NSArray class]]) {
-            likesArr = _currentData[@"likes"][@"data"];
-        }
-    }
-    
     likeOrDislikeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [likeOrDislikeButton addTarget:self
                action:@selector(setLikeOrDislike)
      forControlEvents:UIControlEventTouchDown];
-    [likeOrDislikeButton setTitle:@"Show View" forState:UIControlStateNormal];
     likeOrDislikeButton.frame = CGRectMake(CGRectGetMinX(generalInstaImage.frame), CGRectGetMaxY(generalInstaImage.frame) + 5, 160.0, 40.0);
     [headerTableView addSubview:likeOrDislikeButton];
     
@@ -135,7 +139,27 @@
 
 - (void) setData {
     
+    if ([_currentData isKindOfClass:[Entity class]]) {
+        
+        Entity *ent = _currentData;
+        generalInstaImage.image = [self loadImagewithName:ent.idendifier];
+    
+        NSString *str = [NSString stringWithFormat:@"%@", ent.like];
+        if ([str isEqualToString:@"1"]) {
+            [likeOrDislikeButton setTitle:@"Dislike" forState:UIControlStateNormal];
+        } else {
+            [likeOrDislikeButton setTitle:@"Like" forState:UIControlStateNormal];
+        }
+            identifier = ent.idendifier;
+    }
+
     if ([_currentData isKindOfClass:[NSDictionary class]]) {
+        
+        if ([_currentData[@"likes"] isKindOfClass:[NSDictionary class]]) {
+            if ([_currentData[@"likes"][@"data"] isKindOfClass:[NSArray class]]) {
+                likesArr = _currentData[@"likes"][@"data"];
+            }
+        }
         
         generalInstaImage.image = [self loadImagewithName:_currentData[@"id"]];
         
@@ -176,51 +200,81 @@
 }
 
 - (void)setLikeOrDislike {
-    
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *token = [userDefaults objectForKey:@"AccessToken"];
-    
-    if ([likeOrDislikeButton.titleLabel.text isEqualToString:@"Like"])
-    {
-        NSString *tempUrl = [NSString stringWithFormat:@"https://api.instagram.com/v1/media/%@/likes", _currentData[@"id"]];
-        NSURL *url = [NSURL URLWithString:tempUrl];
+    if ([self connectedToInternet]) {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *token = [userDefaults objectForKey:@"AccessToken"];
         
-        AFHTTPClient *aClient = [[AFHTTPClient alloc] initWithBaseURL:url];
-        [aClient setParameterEncoding:AFFormURLParameterEncoding];
-        
-        NSMutableURLRequest *request = [aClient requestWithMethod:@"POST"
-                                                             path:tempUrl
-                                                       parameters:@{@"access_token": token}];
-        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-        [aClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
-        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if ([likeOrDislikeButton.titleLabel.text isEqualToString:@"Like"])
+        {
+            NSString *tempUrl = [NSString stringWithFormat:@"https://api.instagram.com/v1/media/%@/likes", _currentData[@"id"]];
+            NSURL *url = [NSURL URLWithString:tempUrl];
             
-            [likeOrDislikeButton setTitle:@"Dislike" forState:UIControlStateNormal];
+            AFHTTPClient *aClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+            [aClient setParameterEncoding:AFFormURLParameterEncoding];
             
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"Error: %@", error);
-        }];
-        [operation start];
+            NSMutableURLRequest *request = [aClient requestWithMethod:@"POST"
+                                                                 path:tempUrl
+                                                           parameters:@{@"access_token": token}];
+            AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+            [aClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
+            [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                
+                [likeOrDislikeButton setTitle:@"Dislike" forState:UIControlStateNormal];
+                
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
+            }];
+            [operation start];
+        } else {
+            NSString *tempUrl = [NSString stringWithFormat:@"https://api.instagram.com/v1/media/%@/likes", _currentData[@"id"]];
+            NSURL *url = [NSURL URLWithString:tempUrl];
+            
+            AFHTTPClient *aClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+            [aClient setParameterEncoding:AFFormURLParameterEncoding];
+            
+            NSMutableURLRequest *request = [aClient requestWithMethod:@"DELETE"
+                                                                 path:tempUrl
+                                                           parameters:@{@"access_token": token}];
+            AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+            [aClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
+            [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                [likeOrDislikeButton setTitle:@"Like" forState:UIControlStateNormal];
+                
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
+            }];
+            [operation start];
+        }
     } else {
-        NSString *tempUrl = [NSString stringWithFormat:@"https://api.instagram.com/v1/media/%@/likes", _currentData[@"id"]];
-        NSURL *url = [NSURL URLWithString:tempUrl];
         
-        AFHTTPClient *aClient = [[AFHTTPClient alloc] initWithBaseURL:url];
-        [aClient setParameterEncoding:AFFormURLParameterEncoding];
+        LekeAndDislike *entityMY = [NSEntityDescription
+                            insertNewObjectForEntityForName:@"LekeAndDislike"
+                            inManagedObjectContext:self.managedObjectContext];
         
-        NSMutableURLRequest *request = [aClient requestWithMethod:@"DELETE"
-                                                             path:tempUrl
-                                                       parameters:@{@"access_token": token}];
-        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-        [aClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
-        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [likeOrDislikeButton setTitle:@"Like" forState:UIControlStateNormal];
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"Error: %@", error);
-        }];
-        [operation start];
+        entityMY.identifier = identifier;
+        
+        if ([likeOrDislikeButton.titleLabel.text isEqualToString:@"Like"]) {
+            entityMY.like = [NSNumber numberWithBool:YES];
+        } else {
+             entityMY.like = [NSNumber numberWithBool:NO];
+        }
+
+        NSError *error1 = nil;
+        if ( ! [[self managedObjectContext] save:&error1]) {
+            NSLog(@"An error %@", error1);
+        }
     }
+}
+
+- (BOOL)connectedToInternet
+{
+    NSURL *url=[NSURL URLWithString:@"http://www.google.com"];
+    NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"HEAD"];
+    NSHTTPURLResponse *response;
+    [NSURLConnection sendSynchronousRequest:request returningResponse:&response error: NULL];
+    
+    return ([response statusCode]==200)?YES:NO;
 }
 
 @end

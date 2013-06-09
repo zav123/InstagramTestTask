@@ -12,6 +12,7 @@
 
 @interface CurrentInstaVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, retain) NSDictionary *currentData;
+@property (nonatomic, retain) id currentData;
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @end

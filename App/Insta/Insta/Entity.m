@@ -2,7 +2,7 @@
 //  Entity.m
 //  Insta
 //
-//  Created by admin on 09.06.13.
+//  Created by admin on 10.06.13.
 //  Copyright (c) 2013 zav333. All rights reserved.
 //
 
@@ -11,9 +11,10 @@
 
 @implementation Entity
 
-@dynamic idendifier;
 @dynamic from;
-@dynamic text;
+@dynamic idendifier;
 @dynamic image;
+@dynamic text;
+@dynamic like;
 
 @end
