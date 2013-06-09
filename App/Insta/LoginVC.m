@@ -11,7 +11,7 @@
 #import "LoginVC.h"
 #import "InstaVC.h"
 
-#define AuthorizationLink @"https://instagram.com/oauth/authorize/?client_id=%@&redirect_uri=%@&response_type=token"
+#define AuthorizationLink @"https://instagram.com/oauth/authorize/?client_id=%@&redirect_uri=%@&response_type=token&scope=likes+comments"
 #define Cliant_ID @"8cdc54227130438f9232c710e74d9258"
 #define Redirect_uri @"http://localhost:8888/MAMP/"
 

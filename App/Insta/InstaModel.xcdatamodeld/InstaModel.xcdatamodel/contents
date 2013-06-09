@@ -6,7 +6,12 @@
         <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="LekeAndDislike" representedClassName="LekeAndDislike" syncable="YES">
+        <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="like" optional="YES" attributeType="Boolean" syncable="YES"/>
+    </entity>
     <elements>
         <element name="Entity" positionX="160" positionY="192" width="128" height="105"/>
+        <element name="LekeAndDislike" positionX="160" positionY="192" width="128" height="75"/>
     </elements>
 </model>

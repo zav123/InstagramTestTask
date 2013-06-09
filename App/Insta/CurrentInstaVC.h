@@ -10,7 +10,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CurrentInstaVC : UIViewController
+@interface CurrentInstaVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, retain) NSDictionary *currentData;
 
