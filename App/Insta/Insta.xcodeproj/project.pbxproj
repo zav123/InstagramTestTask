@@ -28,6 +28,8 @@
 		841E19D817631DD200733EC1 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E19CB17631DD200733EC1 /* AFXMLRequestOperation.m */; };
 		841E19D917631DD200733EC1 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E19CD17631DD200733EC1 /* UIImageView+AFNetworking.m */; };
 		841E19DA17631DD200733EC1 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E19D017631DD200733EC1 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		84AC52A41764605A00B27FA4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AC52A31764605A00B27FA4 /* CoreData.framework */; };
+		84AC52A7176460AB00B27FA4 /* InstaModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84AC52A5176460AB00B27FA4 /* InstaModel.xcdatamodeld */; };
 		84B0888D1763794E009CB32D /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B088871763794E009CB32D /* arrow.png */; };
 		84B0888E1763794E009CB32D /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B088881763794E009CB32D /* arrow@2x.png */; };
 		84B0888F1763794E009CB32D /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 84B088891763794E009CB32D /* pop.wav */; };
@@ -78,6 +80,8 @@
 		841E19CD17631DD200733EC1 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
 		841E19CF17631DD200733EC1 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		841E19D017631DD200733EC1 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		84AC52A31764605A00B27FA4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		84AC52A6176460AB00B27FA4 /* InstaModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = InstaModel.xcdatamodel; sourceTree = "<group>"; };
 		84B088871763794E009CB32D /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		84B088881763794E009CB32D /* arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@2x.png"; sourceTree = "<group>"; };
 		84B088891763794E009CB32D /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop.wav; sourceTree = "<group>"; };
@@ -97,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84AC52A41764605A00B27FA4 /* CoreData.framework in Frameworks */,
 				84B0889317637A91009CB32D /* AudioToolbox.framework in Frameworks */,
 				841E19981763121600733EC1 /* UIKit.framework in Frameworks */,
 				841E199A1763121600733EC1 /* Foundation.framework in Frameworks */,
@@ -111,6 +116,7 @@
 		841E198B1763121600733EC1 = {
 			isa = PBXGroup;
 			children = (
+				84AC52A5176460AB00B27FA4 /* InstaModel.xcdatamodeld */,
 				84B0889E17638C02009CB32D /* CurrentInstaVC.h */,
 				84B0889F17638C02009CB32D /* CurrentInstaVC.m */,
 				841E199D1763121600733EC1 /* Insta */,
@@ -130,6 +136,7 @@
 		841E19961763121600733EC1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84AC52A31764605A00B27FA4 /* CoreData.framework */,
 				84B0889217637A91009CB32D /* AudioToolbox.framework */,
 				84B0889817637B03009CB32D /* QuartzCore.framework */,
 				841E19971763121600733EC1 /* UIKit.framework */,
@@ -315,6 +322,7 @@
 				84B088911763794E009CB32D /* PullToRefreshView.m in Sources */,
 				84B0889C17637E5B009CB32D /* ListInstaCell.m in Sources */,
 				84B088A017638C02009CB32D /* CurrentInstaVC.m in Sources */,
+				84AC52A7176460AB00B27FA4 /* InstaModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,6 +442,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		84AC52A5176460AB00B27FA4 /* InstaModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				84AC52A6176460AB00B27FA4 /* InstaModel.xcdatamodel */,
+			);
+			currentVersion = 84AC52A6176460AB00B27FA4 /* InstaModel.xcdatamodel */;
+			path = InstaModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 841E198C1763121600733EC1 /* Project object */;
 }

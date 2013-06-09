@@ -13,6 +13,7 @@
 #import "LoginVC.h"
 #import "PullToRefreshView.h"
 #import "ListInstaCell.h"
+#import "ZAVAppDelegate.h"
 
 @interface InstaVC () {
     
@@ -27,9 +28,18 @@
 
 @implementation InstaVC
 
+@synthesize fetchedResultsController = _fetchedResultsController;
+@synthesize managedObjectContext = _managedObjectContext;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if (_managedObjectContext == nil)
+    {
+        _managedObjectContext = [(ZAVAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+        NSLog(@"After managedObjectContext: %@",  _managedObjectContext);
+    }
     
     dataArrayWithInsta = [[NSMutableArray alloc] init];
     nextPageURL = [[NSString alloc] init];
@@ -55,6 +65,26 @@
     _activityIndicatorView.center = self.view.center;
     [self.view addSubview:_activityIndicatorView];
     [_activityIndicatorView startAnimating];
+    
+    
+    NSError *error = nil;
+    NSManagedObjectContext *context = self.managedObjectContext;
+    if (![context save:&error]) {
+        NSLog(@"Error! %@", error);
+         }
+    
+    NSManagedObject *myMO = [NSEntityDescription
+                             insertNewObjectForEntityForName:@"Entity"
+                             inManagedObjectContext:context];
+    
+    [myMO setValue:@"Uraaaaa" forKey:@"test"];
+//    [myMO setValue:@"Simon Allardice" forKey:@"author"];
+//    [myMO setValue:[NSDate date] forKey:@"releaseDate"];
+    
+    NSError *error1 = nil;
+    if ( ! [[self managedObjectContext] save:&error1]) {
+        NSLog(@"An error %@", error);
+    }
     
     [self getDataArrayWithInsta];
 }
@@ -162,4 +192,7 @@
     [_tableView reloadData];
     [pull finishedLoading];
 }
+
+
+
 @end
