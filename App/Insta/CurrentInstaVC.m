@@ -23,7 +23,6 @@
     UILabel *dateLabel;
     UIButton *likeOrDislikeButton;
     NSString *identifier;
-    
 }
 
 @end
@@ -109,7 +108,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
     
     return likesArr.count;
 }

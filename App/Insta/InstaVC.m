@@ -43,7 +43,6 @@
         _managedObjectContext = [(ZAVAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
     }
     
-    
     dataArrayWithInsta = [[NSMutableArray alloc] init];
     nextPageURL = [[NSString alloc] init];
     
@@ -137,9 +136,7 @@
         
         NSError *error = nil;
         NSArray *fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
-        if (fetchedObjects == nil) {
-            
-        }
+
         [dataArrayWithInsta addObjectsFromArray:fetchedObjects];
         
         [_activityIndicatorView stopAnimating];
@@ -211,7 +208,6 @@
         }];
         
         [operation start];
-        
     }
 }
 
@@ -248,10 +244,7 @@
         [_tableView reloadData];
     }
     [pull finishedLoading];
-        
 }
-
-
 
 - (void) checkNotSendLikeOrDislike {
     
@@ -309,7 +302,6 @@
         NSLog(@"Error: %@", error);
     }];
     [operation start];
-  
 }
 
 - (void)sendDislikewithidentifier:(NSString *)identifier {

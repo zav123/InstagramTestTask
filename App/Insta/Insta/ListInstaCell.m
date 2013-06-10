@@ -70,7 +70,6 @@
             }
         }
         
-        
         if ([data[@"user"] isKindOfClass:[NSDictionary class]]) {
             [profileImage setImageWithURL:[[NSURL alloc] initWithString:data[@"user"][@"profile_picture"]] placeholderImage:[UIImage imageNamed:@"Default"]];
             nameWhoAddedImage.text = data[@"user"][@"username"];
