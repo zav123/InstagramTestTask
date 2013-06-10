@@ -16,6 +16,7 @@
 #import "ZAVAppDelegate.h"
 #import "Entity.h"
 #import "CurrentInstaVC.h"
+#import "LekeAndDislike.h"
 
 @interface InstaVC () {
     
@@ -41,6 +42,8 @@
     {
         _managedObjectContext = [(ZAVAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
     }
+    
+    [self checkNotSendLikeOrDislike];
     
     dataArrayWithInsta = [[NSMutableArray alloc] init];
     nextPageURL = [[NSString alloc] init];
@@ -136,7 +139,6 @@
         if (fetchedObjects == nil) {
             
         }
-        //dataArrayWithInsta = [NSArray arrayWithArray:fetchedObjects];
         [dataArrayWithInsta addObjectsFromArray:fetchedObjects];
         
         [_activityIndicatorView stopAnimating];
@@ -144,15 +146,15 @@
         [_tableView reloadData];
      
     } else {
-        NSFetchRequest * allCars = [[NSFetchRequest alloc] init];
-        [allCars setEntity:[NSEntityDescription entityForName:@"Entity" inManagedObjectContext:_managedObjectContext]];
-        [allCars setIncludesPropertyValues:NO]; //only fetch the managedObjectID
+        NSFetchRequest * allEntytis = [[NSFetchRequest alloc] init];
+        [allEntytis setEntity:[NSEntityDescription entityForName:@"Entity" inManagedObjectContext:_managedObjectContext]];
+        [allEntytis setIncludesPropertyValues:NO]; //only fetch the managedObjectID
         
         NSError * error = nil;
-        NSArray * cars = [_managedObjectContext executeFetchRequest:allCars error:&error];
+        NSArray * entitys = [_managedObjectContext executeFetchRequest:allEntytis error:&error];
         //error handling goes here
-        for (NSManagedObject * car in cars) {
-            [_managedObjectContext deleteObject:car];
+        for (NSManagedObject * ent in entitys) {
+            [_managedObjectContext deleteObject:ent];
         }
         NSError *saveError = nil;
         [_managedObjectContext save:&saveError];
@@ -177,9 +179,7 @@
                 
                 entityMY.from = [object objectForKey:@"user"][@"username"];
                 entityMY.idendifier = object[@"id"];
-                
-                NSLog(@"%@", [object objectForKey:@"user_has_liked"]);
-                
+                                
                 if ([object objectForKey:@"user_has_liked"] == [NSNumber numberWithBool:YES]) {
                     entityMY.like = [NSNumber numberWithBool:YES];
                 } else {
@@ -240,10 +240,11 @@
 - (void) reloadTableData
 {
     if ([self connectedToInternet]) {
-    [_activityIndicatorView startAnimating];
-    [dataArrayWithInsta removeAllObjects];
-    [self getDataArrayWithInsta];
-    [_tableView reloadData];
+        [self checkNotSendLikeOrDislike];
+        [_activityIndicatorView startAnimating];
+        [dataArrayWithInsta removeAllObjects];
+        [self getDataArrayWithInsta];
+        [_tableView reloadData];
     }
     [pull finishedLoading];
         
@@ -258,6 +259,88 @@
     [NSURLConnection sendSynchronousRequest:request returningResponse:&response error: NULL];
     
     return ([response statusCode]==200)?YES:NO;
+}
+
+- (void) checkNotSendLikeOrDislike {
+    
+    if ([self connectedToInternet]) {
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"LekeAndDislike" inManagedObjectContext:_managedObjectContext];
+        [fetchRequest setEntity:entity];
+        
+        NSError *error = nil;
+        NSArray *fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+        if (fetchedObjects.count > 0) {
+            
+            for (LekeAndDislike *object in fetchedObjects) {
+                NSString *str = [NSString stringWithFormat:@"%@", object.like];
+                if ([str isEqualToString:@"0"]) {
+                    [self sendDislikewithidentifier:object.identifier];
+                } else {
+                    [self sendLikewithIdentifier:object.identifier];
+                }
+            }
+            [fetchRequest setIncludesPropertyValues:NO]; 
+            
+            NSError * error = nil;
+            NSArray * entitys = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+            //error handling goes here
+            for (NSManagedObject *ent in entitys) {
+                [_managedObjectContext deleteObject:ent];
+            }
+            NSError *saveError = nil;
+            [_managedObjectContext save:&saveError];
+        }
+        
+    }
+}
+
+- (void)sendLikewithIdentifier:(NSString *)identifier {
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDefaults objectForKey:@"AccessToken"];
+    
+    NSString *tempUrl = [NSString stringWithFormat:@"https://api.instagram.com/v1/media/%@/likes", identifier];
+    NSURL *url = [NSURL URLWithString:tempUrl];
+    
+    AFHTTPClient *aClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+    [aClient setParameterEncoding:AFFormURLParameterEncoding];
+    
+    NSMutableURLRequest *request = [aClient requestWithMethod:@"POST"
+                                                         path:tempUrl
+                                                   parameters:@{@"access_token": token}];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [aClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+    [operation start];
+  
+}
+
+- (void)sendDislikewithidentifier:(NSString *)identifier {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDefaults objectForKey:@"AccessToken"];
+    
+    NSString *tempUrl = [NSString stringWithFormat:@"https://api.instagram.com/v1/media/%@/likes", identifier];
+    NSURL *url = [NSURL URLWithString:tempUrl];
+    
+    AFHTTPClient *aClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+    [aClient setParameterEncoding:AFFormURLParameterEncoding];
+    
+    NSMutableURLRequest *request = [aClient requestWithMethod:@"DELETE"
+                                                         path:tempUrl
+                                                   parameters:@{@"access_token": token}];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [aClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+    [operation start];
 }
 
 

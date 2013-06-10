@@ -51,7 +51,6 @@
             if (endRange.location != NSNotFound)
                 token = [token substringToIndex: endRange.location];
             
-            NSLog(@"access token %@", token);
             if ([token length] > 0 ) {
                 [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"AccessToken"];
                 [[NSUserDefaults standardUserDefaults] synchronize];

@@ -255,8 +255,10 @@
         
         if ([likeOrDislikeButton.titleLabel.text isEqualToString:@"Like"]) {
             entityMY.like = [NSNumber numberWithBool:YES];
+            [likeOrDislikeButton setTitle:@"Dislike" forState:UIControlStateNormal];
         } else {
              entityMY.like = [NSNumber numberWithBool:NO];
+            [likeOrDislikeButton setTitle:@"Like" forState:UIControlStateNormal];
         }
 
         NSError *error1 = nil;
