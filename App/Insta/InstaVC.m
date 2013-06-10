@@ -129,7 +129,7 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [userDefaults objectForKey:@"AccessToken"];
     
-    if (![self connectedToInternet]) {
+    if (![Helper connectedToInternet]) {
         
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"Entity" inManagedObjectContext:_managedObjectContext];
@@ -240,7 +240,7 @@
 
 - (void) reloadTableData
 {
-    if ([self connectedToInternet]) {
+    if ([Helper connectedToInternet]) {
         [self checkNotSendLikeOrDislike];
         [_activityIndicatorView startAnimating];
         [dataArrayWithInsta removeAllObjects];
@@ -251,20 +251,11 @@
         
 }
 
-- (BOOL)connectedToInternet
-{
-    NSURL *url=[NSURL URLWithString:@"http://www.google.com"];
-    NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:url];
-    [request setHTTPMethod:@"HEAD"];
-    NSHTTPURLResponse *response;
-    [NSURLConnection sendSynchronousRequest:request returningResponse:&response error: NULL];
-    
-    return ([response statusCode]==200)?YES:NO;
-}
+
 
 - (void) checkNotSendLikeOrDislike {
     
-    if ([self connectedToInternet]) {
+    if ([Helper connectedToInternet]) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"LikeAndDislike" inManagedObjectContext:_managedObjectContext];
         [fetchRequest setEntity:entity];

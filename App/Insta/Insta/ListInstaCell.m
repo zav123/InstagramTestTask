@@ -52,7 +52,7 @@
         Entity *ent = data;
         nameWhoAddedImage.text =  ent.from;
         titleInstaName.text = ent.text;
-        generalInstaImage.image = [self loadImagewithName:ent.idendifier];
+        generalInstaImage.image = [Helper loadImagewithName:ent.idendifier];
     }
     
     if ([data isKindOfClass:[NSDictionary class]]) {
@@ -61,7 +61,8 @@
                 __unsafe_unretained typeof(self) weakSelf = self;
                 [generalInstaImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:data[@"images"][@"low_resolution"][@"url"]]] placeholderImage:[UIImage imageNamed:@"Default"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                     [weakSelf-> generalInstaImage setImage: image];
-                    [weakSelf saveImage:weakSelf->generalInstaImage.image withName:data[@"id"]];
+                   // [weakSelf [] saveImage:weakSelf->generalInstaImage.image withName:data[@"id"]];
+                    [Helper saveImage:weakSelf->generalInstaImage.image withName:data[@"id"]];
                     
                 } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                     NSLog(@"fail");
@@ -82,31 +83,6 @@
 }
 
 
-- (void)saveImage: (UIImage*)image withName:(NSString *)nameImage
-{
-    if (image != nil)
-    {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                             NSUserDomainMask, YES);
-        NSString *documentsDirectory = [paths objectAtIndex:0];
-        NSString* path = [documentsDirectory stringByAppendingPathComponent:
-                          nameImage];
-        NSData* data = UIImagePNGRepresentation(image);
-        [data writeToFile:path atomically:YES];
-    }
-    
-}
 
-- (UIImage*)loadImagewithName:(NSString *)nameImage
-{
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                         NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString* path = [documentsDirectory stringByAppendingPathComponent:
-                      nameImage];
-    UIImage* image = [UIImage imageWithContentsOfFile:path];
-    
-    return image;
-}
 
 @end

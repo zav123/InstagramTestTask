@@ -142,7 +142,7 @@
     if ([_currentData isKindOfClass:[Entity class]]) {
         
         Entity *ent = _currentData;
-        generalInstaImage.image = [self loadImagewithName:ent.idendifier];
+        generalInstaImage.image = [Helper loadImagewithName:ent.idendifier];
     
         NSString *str = [NSString stringWithFormat:@"%@", ent.like];
         if ([str isEqualToString:@"1"]) {
@@ -161,7 +161,7 @@
             }
         }
         
-        generalInstaImage.image = [self loadImagewithName:_currentData[@"id"]];
+        generalInstaImage.image = [Helper loadImagewithName:_currentData[@"id"]];
         
         identifier = _currentData[@"id"];
         
@@ -189,20 +189,8 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (UIImage*)loadImagewithName:(NSString *)nameImage
-{
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                         NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString* path = [documentsDirectory stringByAppendingPathComponent:
-                      nameImage];
-    UIImage* image = [UIImage imageWithContentsOfFile:path];
-    
-    return image;
-}
-
 - (void)setLikeOrDislike {
-    if ([self connectedToInternet]) {
+    if ([Helper connectedToInternet]) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSString *token = [userDefaults objectForKey:@"AccessToken"];
         
@@ -268,17 +256,6 @@
             NSLog(@"An error %@", error1);
         }
     }
-}
-
-- (BOOL)connectedToInternet
-{
-    NSURL *url=[NSURL URLWithString:@"http://www.google.com"];
-    NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:url];
-    [request setHTTPMethod:@"HEAD"];
-    NSHTTPURLResponse *response;
-    [NSURLConnection sendSynchronousRequest:request returningResponse:&response error: NULL];
-    
-    return ([response statusCode]==200)?YES:NO;
 }
 
 @end

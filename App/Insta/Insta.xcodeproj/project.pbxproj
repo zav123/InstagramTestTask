@@ -32,6 +32,7 @@
 		846531791765178800B5172C /* Entity.m in Sources */ = {isa = PBXBuildFile; fileRef = 846531781765178800B5172C /* Entity.m */; };
 		84AC52A41764605A00B27FA4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AC52A31764605A00B27FA4 /* CoreData.framework */; };
 		84AC52A7176460AB00B27FA4 /* InstaModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84AC52A5176460AB00B27FA4 /* InstaModel.xcdatamodeld */; };
+		84AD3E4D17662CD0003C0E88 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AD3E4C17662CD0003C0E88 /* Helper.m */; };
 		84B0888D1763794E009CB32D /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B088871763794E009CB32D /* arrow.png */; };
 		84B0888E1763794E009CB32D /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B088881763794E009CB32D /* arrow@2x.png */; };
 		84B0888F1763794E009CB32D /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 84B088891763794E009CB32D /* pop.wav */; };
@@ -88,6 +89,8 @@
 		846531781765178800B5172C /* Entity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entity.m; sourceTree = "<group>"; };
 		84AC52A31764605A00B27FA4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		84AC52A6176460AB00B27FA4 /* InstaModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = InstaModel.xcdatamodel; sourceTree = "<group>"; };
+		84AD3E4B17662CD0003C0E88 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
+		84AD3E4C17662CD0003C0E88 /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
 		84B088871763794E009CB32D /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		84B088881763794E009CB32D /* arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@2x.png"; sourceTree = "<group>"; };
 		84B088891763794E009CB32D /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop.wav; sourceTree = "<group>"; };
@@ -122,6 +125,7 @@
 		841E198B1763121600733EC1 = {
 			isa = PBXGroup;
 			children = (
+				84AD3E4A17662CAF003C0E88 /* Base */,
 				841E199D1763121600733EC1 /* Insta */,
 				841E19961763121600733EC1 /* Frameworks */,
 				841E19951763121600733EC1 /* Products */,
@@ -229,6 +233,15 @@
 				846531781765178800B5172C /* Entity.m */,
 			);
 			name = CoreData;
+			sourceTree = "<group>";
+		};
+		84AD3E4A17662CAF003C0E88 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				84AD3E4B17662CD0003C0E88 /* Helper.h */,
+				84AD3E4C17662CD0003C0E88 /* Helper.m */,
+			);
+			name = Base;
 			sourceTree = "<group>";
 		};
 		84B088861763794E009CB32D /* pull */ = {
@@ -343,6 +356,7 @@
 				84AC52A7176460AB00B27FA4 /* InstaModel.xcdatamodeld in Sources */,
 				846531761764FB0E00B5172C /* LikeAndDislike.m in Sources */,
 				846531791765178800B5172C /* Entity.m in Sources */,
+				84AD3E4D17662CD0003C0E88 /* Helper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
