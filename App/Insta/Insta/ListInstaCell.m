@@ -37,7 +37,7 @@
         
         titleInstaName = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(generalInstaImage.frame), CGRectGetMaxY(generalInstaImage.frame), 200, 40)];
         titleInstaName.numberOfLines = 10;
-        titleInstaName.font =[UIFont fontWithName:@"Arial" size:8];
+        titleInstaName.font =[UIFont fontWithName:@"Arial" size:10];
         titleInstaName.textColor = [UIColor blueColor];
         titleInstaName.backgroundColor = [UIColor clearColor];
         titleInstaName.textAlignment = NSTextAlignmentLeft;

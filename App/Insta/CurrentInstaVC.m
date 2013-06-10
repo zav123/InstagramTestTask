@@ -80,7 +80,7 @@
     
     titleInstaName = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(generalInstaImage.frame), CGRectGetMaxY(generalInstaImage.frame) + 40, 200, 40)];
     titleInstaName.numberOfLines = 10;
-    titleInstaName.font =[UIFont fontWithName:@"Arial" size:8];
+    titleInstaName.font =[UIFont fontWithName:@"Arial" size:10];
     titleInstaName.textColor = [UIColor blueColor];
     titleInstaName.backgroundColor = [UIColor clearColor];
     titleInstaName.textAlignment = NSTextAlignmentLeft;
@@ -143,6 +143,8 @@
         
         Entity *ent = _currentData;
         generalInstaImage.image = [Helper loadImagewithName:ent.idendifier];
+        nameWhoAddedImage.text = ent.from;
+        titleInstaName.text = ent.text;
     
         NSString *str = [NSString stringWithFormat:@"%@", ent.like];
         if ([str isEqualToString:@"1"]) {
