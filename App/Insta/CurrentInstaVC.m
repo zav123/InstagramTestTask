@@ -9,7 +9,7 @@
 #import "CurrentInstaVC.h"
 #import "AFNetworking.h"
 #import "ZAVAppDelegate.h"
-#import "LekeAndDislike.h"
+#import "LikeAndDislike.h"
 #import "Entity.h"
 
 @interface CurrentInstaVC () {
@@ -163,6 +163,8 @@
         
         generalInstaImage.image = [self loadImagewithName:_currentData[@"id"]];
         
+        identifier = _currentData[@"id"];
+        
         if ([_currentData[@"user"] isKindOfClass:[NSDictionary class]]) {
             [profileImage setImageWithURL:[[NSURL alloc] initWithString:_currentData[@"user"][@"profile_picture"]] placeholderImage:[UIImage imageNamed:@"Default"]];
             nameWhoAddedImage.text = _currentData[@"user"][@"username"];
@@ -247,8 +249,8 @@
         }
     } else {
         
-        LekeAndDislike *entityMY = [NSEntityDescription
-                            insertNewObjectForEntityForName:@"LekeAndDislike"
+        LikeAndDislike *entityMY = [NSEntityDescription
+                            insertNewObjectForEntityForName:@"LikeAndDislike"
                             inManagedObjectContext:self.managedObjectContext];
         
         entityMY.identifier = identifier;

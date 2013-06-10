@@ -1,15 +1,15 @@
 //
-//  LekeAndDislike.m
+//  LikeAndDislike.m
 //  Insta
 //
 //  Created by admin on 09.06.13.
 //  Copyright (c) 2013 zav333. All rights reserved.
 //
 
-#import "LekeAndDislike.h"
+#import "LikeAndDislike.h"
 
 
-@implementation LekeAndDislike
+@implementation LikeAndDislike
 
 @dynamic identifier;
 @dynamic like;

@@ -1,5 +1,5 @@
 //
-//  LekeAndDislike.h
+//  LikeAndDislike.h
 //  Insta
 //
 //  Created by admin on 09.06.13.
@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 
 
-@interface LekeAndDislike : NSManagedObject
+@interface LikeAndDislike : NSManagedObject
 
 @property (nonatomic, retain) NSString * identifier;
 @property (nonatomic, retain) NSNumber * like;

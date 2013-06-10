@@ -16,7 +16,7 @@
 #import "ZAVAppDelegate.h"
 #import "Entity.h"
 #import "CurrentInstaVC.h"
-#import "LekeAndDislike.h"
+#import "LikeAndDislike.h"
 
 @interface InstaVC () {
     
@@ -43,7 +43,6 @@
         _managedObjectContext = [(ZAVAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
     }
     
-    [self checkNotSendLikeOrDislike];
     
     dataArrayWithInsta = [[NSMutableArray alloc] init];
     nextPageURL = [[NSString alloc] init];
@@ -71,6 +70,8 @@
     _activityIndicatorView.center = self.view.center;
     [self.view addSubview:_activityIndicatorView];
     [_activityIndicatorView startAnimating];
+    
+    [self checkNotSendLikeOrDislike];
     
     [self getDataArrayWithInsta];
 }
@@ -265,14 +266,14 @@
     
     if ([self connectedToInternet]) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"LekeAndDislike" inManagedObjectContext:_managedObjectContext];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"LikeAndDislike" inManagedObjectContext:_managedObjectContext];
         [fetchRequest setEntity:entity];
         
         NSError *error = nil;
         NSArray *fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
         if (fetchedObjects.count > 0) {
             
-            for (LekeAndDislike *object in fetchedObjects) {
+            for (LikeAndDislike *object in fetchedObjects) {
                 NSString *str = [NSString stringWithFormat:@"%@", object.like];
                 if ([str isEqualToString:@"0"]) {
                     [self sendDislikewithidentifier:object.identifier];

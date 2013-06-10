@@ -28,7 +28,7 @@
 		841E19D817631DD200733EC1 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E19CB17631DD200733EC1 /* AFXMLRequestOperation.m */; };
 		841E19D917631DD200733EC1 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E19CD17631DD200733EC1 /* UIImageView+AFNetworking.m */; };
 		841E19DA17631DD200733EC1 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E19D017631DD200733EC1 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		846531761764FB0E00B5172C /* LekeAndDislike.m in Sources */ = {isa = PBXBuildFile; fileRef = 846531751764FB0E00B5172C /* LekeAndDislike.m */; };
+		846531761764FB0E00B5172C /* LikeAndDislike.m in Sources */ = {isa = PBXBuildFile; fileRef = 846531751764FB0E00B5172C /* LikeAndDislike.m */; };
 		846531791765178800B5172C /* Entity.m in Sources */ = {isa = PBXBuildFile; fileRef = 846531781765178800B5172C /* Entity.m */; };
 		84AC52A41764605A00B27FA4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AC52A31764605A00B27FA4 /* CoreData.framework */; };
 		84AC52A7176460AB00B27FA4 /* InstaModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84AC52A5176460AB00B27FA4 /* InstaModel.xcdatamodeld */; };
@@ -82,8 +82,8 @@
 		841E19CD17631DD200733EC1 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
 		841E19CF17631DD200733EC1 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		841E19D017631DD200733EC1 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
-		846531741764FB0E00B5172C /* LekeAndDislike.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LekeAndDislike.h; path = ../LekeAndDislike.h; sourceTree = "<group>"; };
-		846531751764FB0E00B5172C /* LekeAndDislike.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LekeAndDislike.m; path = ../LekeAndDislike.m; sourceTree = "<group>"; };
+		846531741764FB0E00B5172C /* LikeAndDislike.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LikeAndDislike.h; path = ../LikeAndDislike.h; sourceTree = "<group>"; };
+		846531751764FB0E00B5172C /* LikeAndDislike.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LikeAndDislike.m; path = ../LikeAndDislike.m; sourceTree = "<group>"; };
 		846531771765178800B5172C /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
 		846531781765178800B5172C /* Entity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entity.m; sourceTree = "<group>"; };
 		84AC52A31764605A00B27FA4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -222,8 +222,8 @@
 		846531731764FAE500B5172C /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				846531741764FB0E00B5172C /* LekeAndDislike.h */,
-				846531751764FB0E00B5172C /* LekeAndDislike.m */,
+				846531741764FB0E00B5172C /* LikeAndDislike.h */,
+				846531751764FB0E00B5172C /* LikeAndDislike.m */,
 				84AC52A5176460AB00B27FA4 /* InstaModel.xcdatamodeld */,
 				846531771765178800B5172C /* Entity.h */,
 				846531781765178800B5172C /* Entity.m */,
@@ -341,7 +341,7 @@
 				84B0889C17637E5B009CB32D /* ListInstaCell.m in Sources */,
 				84B088A017638C02009CB32D /* CurrentInstaVC.m in Sources */,
 				84AC52A7176460AB00B27FA4 /* InstaModel.xcdatamodeld in Sources */,
-				846531761764FB0E00B5172C /* LekeAndDislike.m in Sources */,
+				846531761764FB0E00B5172C /* LikeAndDislike.m in Sources */,
 				846531791765178800B5172C /* Entity.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
