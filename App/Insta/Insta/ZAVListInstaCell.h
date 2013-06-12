@@ -10,7 +10,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ListInstaCell : UITableViewCell
+@interface ZAVListInstaCell : UITableViewCell
 
 - (void)setDataInCellWithCurrentElement:(id)data;
 

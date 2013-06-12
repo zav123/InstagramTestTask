@@ -4,7 +4,7 @@
 
 #import <Availability.h>
 #import <CoreData/CoreData.h>
-#import "Helper.h"
+#import "ZAVHelper.h"
 
 #define DLog(fmt, ...) NSLog((@"[%@|%@] " fmt), NSStringFromClass([self class]), NSStringFromSelector(_cmd), ##__VA_ARGS__)
 

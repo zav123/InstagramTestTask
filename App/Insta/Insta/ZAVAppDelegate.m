@@ -7,8 +7,8 @@
 //
 
 #import "ZAVAppDelegate.h"
-#import "LoginVC.h"
-#import "InstaVC.h"
+#import "ZAVLoginVC.h"
+#import "ZAVInstaVC.h"
 
 @implementation ZAVAppDelegate
 
@@ -25,15 +25,13 @@
     NSString *token = [userDefaults objectForKey:@"AccessToken"];
     
     if (token.length >0) {
-        InstaVC *vc = [[InstaVC alloc]init];
+        ZAVInstaVC *vc = [[ZAVInstaVC alloc]init];
         self.window.rootViewController = vc;
     } else {
-        LoginVC *vc = [[LoginVC alloc]init];
+        ZAVLoginVC *vc = [[ZAVLoginVC alloc]init];
         self.window.rootViewController = vc;
     }
     
-  
-
     [self.window makeKeyAndVisible];
     return YES;
 }

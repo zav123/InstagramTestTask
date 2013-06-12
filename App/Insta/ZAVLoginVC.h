@@ -10,6 +10,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginVC : UIViewController <UIWebViewDelegate>
+@interface ZAVLoginVC : UIViewController <UIWebViewDelegate>
 
 @end

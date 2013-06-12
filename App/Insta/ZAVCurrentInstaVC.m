@@ -6,28 +6,28 @@
 //  Copyright (c) 2013 zav333. All rights reserved.
 //
 
-#import "CurrentInstaVC.h"
+#import "ZAVCurrentInstaVC.h"
 #import "AFNetworking.h"
 #import "ZAVAppDelegate.h"
 #import "LikeAndDislike.h"
 #import "Entity.h"
 
-@interface CurrentInstaVC () {
-    
-    UIImageView *profileImage;
-    UIImageView *generalInstaImage;
-    UILabel *nameWhoAddedImage;
-    UILabel *titleInstaName;
-    UITableView *_tableView;
-    NSArray *likesArr;
-    UILabel *dateLabel;
-    UIButton *likeOrDislikeButton;
-    NSString *identifier;
-}
+@interface ZAVCurrentInstaVC () 
+
+    @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+    @property (readwrite, nonatomic, strong) UIImageView *profileImage;
+    @property (readwrite, nonatomic, strong) UIImageView *generalInstaImage;
+    @property (readwrite, nonatomic, strong) UILabel *nameWhoAddedImage;
+    @property (readwrite, nonatomic, strong) UILabel *titleInstaName;
+    @property (readwrite, nonatomic, strong) UITableView *tableView;
+    @property (readwrite, nonatomic, strong) NSArray *likesArr;
+    @property (readwrite, nonatomic, strong) UILabel *dateLabel;
+    @property (readwrite, nonatomic, strong) UIButton *likeOrDislikeButton;
+    @property (readwrite, nonatomic, copy) NSString *identifier;
 
 @end
 
-@implementation CurrentInstaVC
+@implementation ZAVCurrentInstaVC
 
 @synthesize managedObjectContext = _managedObjectContext;
 
@@ -50,51 +50,51 @@
     [toolbar setItems:items animated:NO];
     [self.view addSubview:toolbar];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, self.view.frame.size.width, self.view.frame.size.height - 44)];
-    _tableView.delegate = self;
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, self.view.frame.size.width, self.view.frame.size.height - 44)];
+    self.tableView.delegate = self;
     _tableView.dataSource = self;
-    [self.view addSubview:_tableView];
+    [self.view addSubview:self.tableView];
     
     UIView * headerTableView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 480)];
     
-    profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(7, 15, 64, 66)];
-    [headerTableView addSubview:profileImage];
+    self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(7, 15, 64, 66)];
+    [headerTableView addSubview:self.profileImage];
     
-    generalInstaImage = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMinX(profileImage.frame), CGRectGetMaxY(profileImage.frame) +5, 306, 306)];
-    [headerTableView addSubview:generalInstaImage];
+    self.generalInstaImage = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.profileImage.frame), CGRectGetMaxY(self.profileImage.frame) +5, 306, 306)];
+    [headerTableView addSubview:self.generalInstaImage];
     
-    nameWhoAddedImage = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(profileImage.frame) + 10, 20, 200, 19)];
-    nameWhoAddedImage.numberOfLines = 1;
-    nameWhoAddedImage.textColor = [UIColor blueColor];
-    nameWhoAddedImage.backgroundColor = [UIColor clearColor];
-    nameWhoAddedImage.textAlignment = NSTextAlignmentLeft;
-    [headerTableView addSubview:nameWhoAddedImage];
+    self.nameWhoAddedImage = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.profileImage.frame) + 10, 20, 200, 19)];
+    self.nameWhoAddedImage.numberOfLines = 1;
+    self.nameWhoAddedImage.textColor = [UIColor blueColor];
+    self.nameWhoAddedImage.backgroundColor = [UIColor clearColor];
+    self.nameWhoAddedImage.textAlignment = NSTextAlignmentLeft;
+    [headerTableView addSubview:self.nameWhoAddedImage];
     
-    dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(profileImage.frame) + 10, 50, 250, 19)];
-    dateLabel.numberOfLines = 1;
-    dateLabel.textColor = [UIColor blueColor];
-    dateLabel.backgroundColor = [UIColor clearColor];
-    dateLabel.textAlignment = NSTextAlignmentLeft;
-    [headerTableView addSubview:dateLabel];
+    self.dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.profileImage.frame) + 10, 50, 250, 19)];
+    self.dateLabel.numberOfLines = 1;
+    self.dateLabel.textColor = [UIColor blueColor];
+    self.dateLabel.backgroundColor = [UIColor clearColor];
+    self.dateLabel.textAlignment = NSTextAlignmentLeft;
+    [headerTableView addSubview:self.dateLabel];
     
-    titleInstaName = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(generalInstaImage.frame), CGRectGetMaxY(generalInstaImage.frame) + 40, 200, 40)];
-    titleInstaName.numberOfLines = 10;
-    titleInstaName.font =[UIFont fontWithName:@"Arial" size:10];
-    titleInstaName.textColor = [UIColor blueColor];
-    titleInstaName.backgroundColor = [UIColor clearColor];
-    titleInstaName.textAlignment = NSTextAlignmentLeft;
-    [headerTableView addSubview:titleInstaName];
+    self.titleInstaName = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.generalInstaImage.frame), CGRectGetMaxY(self.generalInstaImage.frame) + 50, 200, 40)];
+    self.titleInstaName.numberOfLines = 10;
+    self.titleInstaName.font =[UIFont fontWithName:@"Arial" size:10];
+    self.titleInstaName.textColor = [UIColor blueColor];
+    self.titleInstaName.backgroundColor = [UIColor clearColor];
+    self.titleInstaName.textAlignment = NSTextAlignmentLeft;
+    [headerTableView addSubview:self.titleInstaName];
     
-    likeOrDislikeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [likeOrDislikeButton addTarget:self
+    self.likeOrDislikeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.likeOrDislikeButton addTarget:self
                action:@selector(setLikeOrDislike)
      forControlEvents:UIControlEventTouchDown];
-    likeOrDislikeButton.frame = CGRectMake(CGRectGetMinX(generalInstaImage.frame), CGRectGetMaxY(generalInstaImage.frame) + 5, 160.0, 40.0);
-    [headerTableView addSubview:likeOrDislikeButton];
+    self.likeOrDislikeButton.frame = CGRectMake(CGRectGetMinX(self.generalInstaImage.frame), CGRectGetMaxY(self.generalInstaImage.frame) + 5, 160.0, 40.0);
+    [headerTableView addSubview:self.likeOrDislikeButton];
     
     [self setData];
     
-    _tableView.tableHeaderView = headerTableView;
+    self.tableView.tableHeaderView = headerTableView;
 }
 
 #pragma mark TableViewDeleagate
@@ -109,7 +109,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return likesArr.count;
+    return self.likesArr.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -128,7 +128,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    cell.textLabel.text = likesArr[indexPath.row][@"username"];
+    cell.textLabel.text = self.likesArr[indexPath.row][@"username"];
     cell.userInteractionEnabled = NO;
     
     return cell;
@@ -140,46 +140,46 @@
     if ([_currentData isKindOfClass:[Entity class]]) {
         
         Entity *ent = _currentData;
-        generalInstaImage.image = [Helper loadImagewithName:ent.idendifier];
-        nameWhoAddedImage.text = ent.from;
-        titleInstaName.text = ent.text;
+        self.generalInstaImage.image = [ZAVHelper loadImagewithName:ent.idendifier];
+        self.nameWhoAddedImage.text = ent.from;
+        self.titleInstaName.text = ent.text;
     
         NSString *str = [NSString stringWithFormat:@"%@", ent.like];
         if ([str isEqualToString:@"1"]) {
-            [likeOrDislikeButton setTitle:@"Dislike" forState:UIControlStateNormal];
+            [self.likeOrDislikeButton setTitle:@"Dislike" forState:UIControlStateNormal];
         } else {
-            [likeOrDislikeButton setTitle:@"Like" forState:UIControlStateNormal];
+            [self.likeOrDislikeButton setTitle:@"Like" forState:UIControlStateNormal];
         }
-            identifier = ent.idendifier;
+            self.identifier = ent.idendifier;
     }
 
     if ([_currentData isKindOfClass:[NSDictionary class]]) {
         
         if ([_currentData[@"likes"] isKindOfClass:[NSDictionary class]]) {
             if ([_currentData[@"likes"][@"data"] isKindOfClass:[NSArray class]]) {
-                likesArr = _currentData[@"likes"][@"data"];
+                self.likesArr = _currentData[@"likes"][@"data"];
             }
         }
         
-        generalInstaImage.image = [Helper loadImagewithName:_currentData[@"id"]];
+        self.generalInstaImage.image = [ZAVHelper loadImagewithName:self.currentData[@"id"]];
         
-        identifier = _currentData[@"id"];
+        self.identifier = self.currentData[@"id"];
         
-        if ([_currentData[@"user"] isKindOfClass:[NSDictionary class]]) {
-            [profileImage setImageWithURL:[[NSURL alloc] initWithString:_currentData[@"user"][@"profile_picture"]] placeholderImage:[UIImage imageNamed:@"Default"]];
-            nameWhoAddedImage.text = _currentData[@"user"][@"username"];
+        if ([self.currentData[@"user"] isKindOfClass:[NSDictionary class]]) {
+            [self.profileImage setImageWithURL:[[NSURL alloc] initWithString:self.currentData[@"user"][@"profile_picture"]] placeholderImage:[UIImage imageNamed:@"Default"]];
+            self.nameWhoAddedImage.text = self.currentData[@"user"][@"username"];
         }
         
         if ([_currentData[@"caption"] isKindOfClass:[NSDictionary class]]) {
-            titleInstaName.text = _currentData[@"caption"][@"text"];
+            self.titleInstaName.text = self.currentData[@"caption"][@"text"];
         }
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:[_currentData[@"created_time"] integerValue]];
-        dateLabel.text = [NSString stringWithFormat:@"%@", date];
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:[self.currentData[@"created_time"] integerValue]];
+        self.dateLabel.text = [NSString stringWithFormat:@"%@", date];
 
         if (![_currentData[@"user_has_liked"] integerValue] == 0) {
-            [likeOrDislikeButton setTitle:@"Dislike" forState:UIControlStateNormal];
+            [self.likeOrDislikeButton setTitle:@"Dislike" forState:UIControlStateNormal];
         } else {
-            [likeOrDislikeButton setTitle:@"Like" forState:UIControlStateNormal];
+            [self.likeOrDislikeButton setTitle:@"Like" forState:UIControlStateNormal];
         }
     }
 }
@@ -190,11 +190,11 @@
 }
 
 - (void)setLikeOrDislike {
-    if ([Helper connectedToInternet]) {
+    if ([ZAVHelper connectedToInternet]) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSString *token = [userDefaults objectForKey:@"AccessToken"];
         
-        if ([likeOrDislikeButton.titleLabel.text isEqualToString:@"Like"])
+        if ([self.likeOrDislikeButton.titleLabel.text isEqualToString:@"Like"])
         {
             NSString *tempUrl = [NSString stringWithFormat:@"https://api.instagram.com/v1/media/%@/likes", _currentData[@"id"]];
             NSURL *url = [NSURL URLWithString:tempUrl];
@@ -209,7 +209,7 @@
             [aClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
             [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
                 
-                [likeOrDislikeButton setTitle:@"Dislike" forState:UIControlStateNormal];
+                [self.likeOrDislikeButton setTitle:@"Dislike" forState:UIControlStateNormal];
                 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"Error: %@", error);
@@ -228,7 +228,7 @@
             AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
             [aClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
             [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-                [likeOrDislikeButton setTitle:@"Like" forState:UIControlStateNormal];
+                [self.likeOrDislikeButton setTitle:@"Like" forState:UIControlStateNormal];
                 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"Error: %@", error);
@@ -241,14 +241,14 @@
                             insertNewObjectForEntityForName:@"LikeAndDislike"
                             inManagedObjectContext:self.managedObjectContext];
         
-        entityMY.identifier = identifier;
+        entityMY.identifier = self.identifier;
         
-        if ([likeOrDislikeButton.titleLabel.text isEqualToString:@"Like"]) {
+        if ([self.likeOrDislikeButton.titleLabel.text isEqualToString:@"Like"]) {
             entityMY.like = [NSNumber numberWithBool:YES];
-            [likeOrDislikeButton setTitle:@"Dislike" forState:UIControlStateNormal];
+            [self.likeOrDislikeButton setTitle:@"Dislike" forState:UIControlStateNormal];
         } else {
              entityMY.like = [NSNumber numberWithBool:NO];
-            [likeOrDislikeButton setTitle:@"Like" forState:UIControlStateNormal];
+            [self.likeOrDislikeButton setTitle:@"Like" forState:UIControlStateNormal];
         }
 
         NSError *error1 = nil;

@@ -8,33 +8,32 @@
 
 //authorization Insta
 
-#import "LoginVC.h"
-#import "InstaVC.h"
+#import "ZAVLoginVC.h"
+#import "ZAVInstaVC.h"
 
 #define AuthorizationLink @"https://instagram.com/oauth/authorize/?client_id=%@&redirect_uri=%@&response_type=token&scope=likes+comments"
 #define Cliant_ID @"8cdc54227130438f9232c710e74d9258"
 #define Redirect_uri @"http://localhost:8888/MAMP/"
 
-@interface LoginVC () {
+@interface ZAVLoginVC () 
     
-    UIWebView *_webView;
-}
+    @property (nonatomic, readwrite, strong) UIWebView *webView;
 
 @end
 
-@implementation LoginVC
+@implementation ZAVLoginVC
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     NSString *fullURL = [NSString stringWithFormat:AuthorizationLink, Cliant_ID, Redirect_uri];
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-    [_webView loadRequest:requestObj];
-    _webView.delegate = self;
-    [self.view addSubview:_webView];
+    [self.webView loadRequest:requestObj];
+    self.webView.delegate = self;
+    [self.view addSubview:self.webView];
 }
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
@@ -55,7 +54,7 @@
                 [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"AccessToken"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
-                InstaVC *vc = [[InstaVC alloc] init];
+                ZAVInstaVC *vc = [[ZAVInstaVC alloc] init];
                 [self presentViewController:vc animated:YES completion:nil];
             }
         }

@@ -10,7 +10,7 @@
 
 @class UIImage;
 
-@interface Helper : NSObject
+@interface ZAVHelper : NSObject
 
 + (BOOL)connectedToInternet;
 + (void)saveImage: (UIImage*)image withName:(NSString *)nameImage;

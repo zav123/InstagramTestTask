@@ -6,10 +6,11 @@
 //  Copyright (c) 2013 zav333. All rights reserved.
 //
 
-#import "Helper.h"
+#import "ZAVHelper.h"
 
-@implementation Helper
+@implementation ZAVHelper
 
+//check internet Connect
 + (BOOL)connectedToInternet
 {
     NSURL *url=[NSURL URLWithString:@"http://www.google.com"];

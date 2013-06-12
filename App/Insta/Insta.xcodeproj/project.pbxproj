@@ -16,8 +16,8 @@
 		841E19AA1763121600733EC1 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 841E19A91763121600733EC1 /* Default.png */; };
 		841E19AC1763121600733EC1 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 841E19AB1763121600733EC1 /* Default@2x.png */; };
 		841E19AE1763121600733EC1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 841E19AD1763121600733EC1 /* Default-568h@2x.png */; };
-		841E19B61763127D00733EC1 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E19B51763127D00733EC1 /* LoginVC.m */; };
-		841E19B917631DC700733EC1 /* InstaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E19B817631DC700733EC1 /* InstaVC.m */; };
+		841E19B61763127D00733EC1 /* ZAVLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E19B51763127D00733EC1 /* ZAVLoginVC.m */; };
+		841E19B917631DC700733EC1 /* ZAVInstaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E19B817631DC700733EC1 /* ZAVInstaVC.m */; };
 		841E19D117631DD200733EC1 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E19BC17631DD200733EC1 /* AFHTTPClient.m */; };
 		841E19D217631DD200733EC1 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E19BE17631DD200733EC1 /* AFHTTPRequestOperation.m */; };
 		841E19D317631DD200733EC1 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E19C017631DD200733EC1 /* AFImageRequestOperation.m */; };
@@ -32,7 +32,7 @@
 		846531791765178800B5172C /* Entity.m in Sources */ = {isa = PBXBuildFile; fileRef = 846531781765178800B5172C /* Entity.m */; };
 		84AC52A41764605A00B27FA4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AC52A31764605A00B27FA4 /* CoreData.framework */; };
 		84AC52A7176460AB00B27FA4 /* InstaModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84AC52A5176460AB00B27FA4 /* InstaModel.xcdatamodeld */; };
-		84AD3E4D17662CD0003C0E88 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AD3E4C17662CD0003C0E88 /* Helper.m */; };
+		84AD3E4D17662CD0003C0E88 /* ZAVHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AD3E4C17662CD0003C0E88 /* ZAVHelper.m */; };
 		84B0888D1763794E009CB32D /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B088871763794E009CB32D /* arrow.png */; };
 		84B0888E1763794E009CB32D /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B088881763794E009CB32D /* arrow@2x.png */; };
 		84B0888F1763794E009CB32D /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 84B088891763794E009CB32D /* pop.wav */; };
@@ -40,8 +40,8 @@
 		84B088911763794E009CB32D /* PullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B0888C1763794E009CB32D /* PullToRefreshView.m */; };
 		84B0889317637A91009CB32D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B0889217637A91009CB32D /* AudioToolbox.framework */; };
 		84B0889917637B03009CB32D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B0889817637B03009CB32D /* QuartzCore.framework */; };
-		84B0889C17637E5B009CB32D /* ListInstaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B0889B17637E5B009CB32D /* ListInstaCell.m */; };
-		84B088A017638C02009CB32D /* CurrentInstaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B0889F17638C02009CB32D /* CurrentInstaVC.m */; };
+		84B0889C17637E5B009CB32D /* ZAVListInstaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B0889B17637E5B009CB32D /* ZAVListInstaCell.m */; };
+		84B088A017638C02009CB32D /* ZAVCurrentInstaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B0889F17638C02009CB32D /* ZAVCurrentInstaVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,15 +53,15 @@
 		841E19A11763121600733EC1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		841E19A31763121600733EC1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		841E19A51763121600733EC1 /* Insta-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Insta-Prefix.pch"; sourceTree = "<group>"; };
-		841E19A61763121600733EC1 /* ZAVAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZAVAppDelegate.h; sourceTree = "<group>"; };
-		841E19A71763121600733EC1 /* ZAVAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZAVAppDelegate.m; sourceTree = "<group>"; };
+		841E19A61763121600733EC1 /* ZAVAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ZAVAppDelegate.h; path = Insta/ZAVAppDelegate.h; sourceTree = "<group>"; };
+		841E19A71763121600733EC1 /* ZAVAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ZAVAppDelegate.m; path = Insta/ZAVAppDelegate.m; sourceTree = "<group>"; };
 		841E19A91763121600733EC1 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		841E19AB1763121600733EC1 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		841E19AD1763121600733EC1 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		841E19B41763127D00733EC1 /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginVC.h; path = ../LoginVC.h; sourceTree = "<group>"; };
-		841E19B51763127D00733EC1 /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginVC.m; path = ../LoginVC.m; sourceTree = "<group>"; };
-		841E19B717631DC700733EC1 /* InstaVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstaVC.h; sourceTree = SOURCE_ROOT; };
-		841E19B817631DC700733EC1 /* InstaVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstaVC.m; sourceTree = SOURCE_ROOT; };
+		841E19B41763127D00733EC1 /* ZAVLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZAVLoginVC.h; sourceTree = "<group>"; };
+		841E19B51763127D00733EC1 /* ZAVLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZAVLoginVC.m; sourceTree = "<group>"; };
+		841E19B717631DC700733EC1 /* ZAVInstaVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZAVInstaVC.h; sourceTree = SOURCE_ROOT; };
+		841E19B817631DC700733EC1 /* ZAVInstaVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZAVInstaVC.m; sourceTree = SOURCE_ROOT; };
 		841E19BB17631DD200733EC1 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		841E19BC17631DD200733EC1 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		841E19BD17631DD200733EC1 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -89,8 +89,8 @@
 		846531781765178800B5172C /* Entity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entity.m; sourceTree = "<group>"; };
 		84AC52A31764605A00B27FA4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		84AC52A6176460AB00B27FA4 /* InstaModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = InstaModel.xcdatamodel; sourceTree = "<group>"; };
-		84AD3E4B17662CD0003C0E88 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
-		84AD3E4C17662CD0003C0E88 /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
+		84AD3E4B17662CD0003C0E88 /* ZAVHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZAVHelper.h; sourceTree = "<group>"; };
+		84AD3E4C17662CD0003C0E88 /* ZAVHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZAVHelper.m; sourceTree = "<group>"; };
 		84B088871763794E009CB32D /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		84B088881763794E009CB32D /* arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@2x.png"; sourceTree = "<group>"; };
 		84B088891763794E009CB32D /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop.wav; sourceTree = "<group>"; };
@@ -99,10 +99,10 @@
 		84B0888C1763794E009CB32D /* PullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshView.m; sourceTree = "<group>"; };
 		84B0889217637A91009CB32D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		84B0889817637B03009CB32D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		84B0889A17637E5B009CB32D /* ListInstaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListInstaCell.h; sourceTree = "<group>"; };
-		84B0889B17637E5B009CB32D /* ListInstaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListInstaCell.m; sourceTree = "<group>"; };
-		84B0889E17638C02009CB32D /* CurrentInstaVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurrentInstaVC.h; path = ../CurrentInstaVC.h; sourceTree = "<group>"; };
-		84B0889F17638C02009CB32D /* CurrentInstaVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CurrentInstaVC.m; path = ../CurrentInstaVC.m; sourceTree = "<group>"; };
+		84B0889A17637E5B009CB32D /* ZAVListInstaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZAVListInstaCell.h; sourceTree = "<group>"; };
+		84B0889B17637E5B009CB32D /* ZAVListInstaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZAVListInstaCell.m; sourceTree = "<group>"; };
+		84B0889E17638C02009CB32D /* ZAVCurrentInstaVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZAVCurrentInstaVC.h; sourceTree = "<group>"; };
+		84B0889F17638C02009CB32D /* ZAVCurrentInstaVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZAVCurrentInstaVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,8 +125,8 @@
 		841E198B1763121600733EC1 = {
 			isa = PBXGroup;
 			children = (
-				84AD3E4A17662CAF003C0E88 /* Base */,
-				841E199D1763121600733EC1 /* Insta */,
+				84ABFEA41767DA2E0082D486 /* Source */,
+				841E199E1763121600733EC1 /* Supporting Files */,
 				841E19961763121600733EC1 /* Frameworks */,
 				841E19951763121600733EC1 /* Products */,
 			);
@@ -153,30 +153,9 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		841E199D1763121600733EC1 /* Insta */ = {
-			isa = PBXGroup;
-			children = (
-				846531731764FAE500B5172C /* CoreData */,
-				84B0889D17638AB5009CB32D /* Cell */,
-				841E19B717631DC700733EC1 /* InstaVC.h */,
-				841E19B817631DC700733EC1 /* InstaVC.m */,
-				841E19B41763127D00733EC1 /* LoginVC.h */,
-				841E19B51763127D00733EC1 /* LoginVC.m */,
-				84B0889E17638C02009CB32D /* CurrentInstaVC.h */,
-				84B0889F17638C02009CB32D /* CurrentInstaVC.m */,
-				841E19A61763121600733EC1 /* ZAVAppDelegate.h */,
-				841E19A71763121600733EC1 /* ZAVAppDelegate.m */,
-				841E199E1763121600733EC1 /* Supporting Files */,
-			);
-			path = Insta;
-			sourceTree = "<group>";
-		};
 		841E199E1763121600733EC1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				84B088861763794E009CB32D /* pull */,
-				841E19BA17631DD200733EC1 /* AFNetworking */,
-				841E19CE17631DD200733EC1 /* JSONKit */,
 				841E199F1763121600733EC1 /* Insta-Info.plist */,
 				841E19A01763121600733EC1 /* InfoPlist.strings */,
 				841E19A31763121600733EC1 /* main.m */,
@@ -186,6 +165,7 @@
 				841E19AD1763121600733EC1 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			path = Insta;
 			sourceTree = "<group>";
 		};
 		841E19BA17631DD200733EC1 /* AFNetworking */ = {
@@ -211,7 +191,8 @@
 				841E19CC17631DD200733EC1 /* UIImageView+AFNetworking.h */,
 				841E19CD17631DD200733EC1 /* UIImageView+AFNetworking.m */,
 			);
-			path = AFNetworking;
+			name = AFNetworking;
+			path = Insta/AFNetworking;
 			sourceTree = "<group>";
 		};
 		841E19CE17631DD200733EC1 /* JSONKit */ = {
@@ -220,7 +201,8 @@
 				841E19CF17631DD200733EC1 /* JSONKit.h */,
 				841E19D017631DD200733EC1 /* JSONKit.m */,
 			);
-			path = JSONKit;
+			name = JSONKit;
+			path = Insta/JSONKit;
 			sourceTree = "<group>";
 		};
 		846531731764FAE500B5172C /* CoreData */ = {
@@ -233,13 +215,43 @@
 				846531781765178800B5172C /* Entity.m */,
 			);
 			name = CoreData;
+			path = Insta;
+			sourceTree = "<group>";
+		};
+		84A7EEE117683FCE0087D593 /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				841E19CE17631DD200733EC1 /* JSONKit */,
+				841E19BA17631DD200733EC1 /* AFNetworking */,
+				84B088861763794E009CB32D /* pull */,
+			);
+			name = SDK;
+			sourceTree = "<group>";
+		};
+		84ABFEA41767DA2E0082D486 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				84AD3E4A17662CAF003C0E88 /* Base */,
+				846531731764FAE500B5172C /* CoreData */,
+				84B0889D17638AB5009CB32D /* Cell */,
+				841E19B717631DC700733EC1 /* ZAVInstaVC.h */,
+				841E19B817631DC700733EC1 /* ZAVInstaVC.m */,
+				841E19B41763127D00733EC1 /* ZAVLoginVC.h */,
+				841E19B51763127D00733EC1 /* ZAVLoginVC.m */,
+				84B0889E17638C02009CB32D /* ZAVCurrentInstaVC.h */,
+				84B0889F17638C02009CB32D /* ZAVCurrentInstaVC.m */,
+				841E19A61763121600733EC1 /* ZAVAppDelegate.h */,
+				841E19A71763121600733EC1 /* ZAVAppDelegate.m */,
+			);
+			name = Source;
 			sourceTree = "<group>";
 		};
 		84AD3E4A17662CAF003C0E88 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				84AD3E4B17662CD0003C0E88 /* Helper.h */,
-				84AD3E4C17662CD0003C0E88 /* Helper.m */,
+				84A7EEE117683FCE0087D593 /* SDK */,
+				84AD3E4B17662CD0003C0E88 /* ZAVHelper.h */,
+				84AD3E4C17662CD0003C0E88 /* ZAVHelper.m */,
 			);
 			name = Base;
 			sourceTree = "<group>";
@@ -260,10 +272,11 @@
 		84B0889D17638AB5009CB32D /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				84B0889A17637E5B009CB32D /* ListInstaCell.h */,
-				84B0889B17637E5B009CB32D /* ListInstaCell.m */,
+				84B0889A17637E5B009CB32D /* ZAVListInstaCell.h */,
+				84B0889B17637E5B009CB32D /* ZAVListInstaCell.m */,
 			);
 			name = Cell;
+			path = Insta;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -338,8 +351,8 @@
 			files = (
 				841E19A41763121600733EC1 /* main.m in Sources */,
 				841E19A81763121600733EC1 /* ZAVAppDelegate.m in Sources */,
-				841E19B61763127D00733EC1 /* LoginVC.m in Sources */,
-				841E19B917631DC700733EC1 /* InstaVC.m in Sources */,
+				841E19B61763127D00733EC1 /* ZAVLoginVC.m in Sources */,
+				841E19B917631DC700733EC1 /* ZAVInstaVC.m in Sources */,
 				841E19D117631DD200733EC1 /* AFHTTPClient.m in Sources */,
 				841E19D217631DD200733EC1 /* AFHTTPRequestOperation.m in Sources */,
 				841E19D317631DD200733EC1 /* AFImageRequestOperation.m in Sources */,
@@ -351,12 +364,12 @@
 				841E19D917631DD200733EC1 /* UIImageView+AFNetworking.m in Sources */,
 				841E19DA17631DD200733EC1 /* JSONKit.m in Sources */,
 				84B088911763794E009CB32D /* PullToRefreshView.m in Sources */,
-				84B0889C17637E5B009CB32D /* ListInstaCell.m in Sources */,
-				84B088A017638C02009CB32D /* CurrentInstaVC.m in Sources */,
+				84B0889C17637E5B009CB32D /* ZAVListInstaCell.m in Sources */,
+				84B088A017638C02009CB32D /* ZAVCurrentInstaVC.m in Sources */,
 				84AC52A7176460AB00B27FA4 /* InstaModel.xcdatamodeld in Sources */,
 				846531761764FB0E00B5172C /* LikeAndDislike.m in Sources */,
 				846531791765178800B5172C /* Entity.m in Sources */,
-				84AD3E4D17662CD0003C0E88 /* Helper.m in Sources */,
+				84AD3E4D17662CD0003C0E88 /* ZAVHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

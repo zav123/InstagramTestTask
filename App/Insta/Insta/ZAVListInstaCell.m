@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 zav333. All rights reserved.
 //
 
-#import "ListInstaCell.h"
+#import "ZAVListInstaCell.h"
 #import "AFNetworking.h"
 #import "Entity.h"
 
-@implementation ListInstaCell {
+@implementation ZAVListInstaCell {
     UIImageView *profileImage;
     UIImageView *generalInstaImage;
     UILabel *nameWhoAddedImage;
@@ -52,7 +52,7 @@
         Entity *ent = data;
         nameWhoAddedImage.text =  ent.from;
         titleInstaName.text = ent.text;
-        generalInstaImage.image = [Helper loadImagewithName:ent.idendifier];
+        generalInstaImage.image = [ZAVHelper loadImagewithName:ent.idendifier];
     }
     
     if ([data isKindOfClass:[NSDictionary class]]) {
@@ -62,7 +62,7 @@
                 [generalInstaImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:data[@"images"][@"low_resolution"][@"url"]]] placeholderImage:[UIImage imageNamed:@"Default"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                     [weakSelf-> generalInstaImage setImage: image];
                    // [weakSelf [] saveImage:weakSelf->generalInstaImage.image withName:data[@"id"]];
-                    [Helper saveImage:weakSelf->generalInstaImage.image withName:data[@"id"]];
+                    [ZAVHelper saveImage:weakSelf->generalInstaImage.image withName:data[@"id"]];
                     
                 } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                     NSLog(@"fail");

@@ -8,28 +8,29 @@
 
 //Класс отображения перечня фото
 
-#import "InstaVC.h"
+#import "ZAVInstaVC.h"
 #import "AFNetworking.h"
-#import "LoginVC.h"
+#import "ZAVLoginVC.h"
 #import "PullToRefreshView.h"
-#import "ListInstaCell.h"
+#import "ZAVListInstaCell.h"
 #import "ZAVAppDelegate.h"
 #import "Entity.h"
-#import "CurrentInstaVC.h"
+#import "ZAVCurrentInstaVC.h"
 #import "LikeAndDislike.h"
 
-@interface InstaVC () {
-    
-    PullToRefreshView *pull;
-    NSMutableArray *dataArrayWithInsta;
-    UITableView *_tableView;
-    UIActivityIndicatorView *_activityIndicatorView;
-    NSString *nextPageURL;
-}
+@interface ZAVInstaVC () 
+
+   @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+   @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+   @property (nonatomic, readwrite, strong) PullToRefreshView *pull;
+   @property (nonatomic, readwrite, strong) NSMutableArray *dataArrayWithInsta;
+   @property (nonatomic, readwrite, strong) UITableView *tableView;
+   @property (nonatomic, readwrite, strong) UIActivityIndicatorView *activityIndicatorView;
+   @property (nonatomic, readwrite, copy) NSString *nextPageURL;
 
 @end
 
-@implementation InstaVC
+@implementation ZAVInstaVC
 
 @synthesize fetchedResultsController = _fetchedResultsController;
 @synthesize managedObjectContext = _managedObjectContext;
@@ -43,8 +44,8 @@
         _managedObjectContext = [(ZAVAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
     }
     
-    dataArrayWithInsta = [[NSMutableArray alloc] init];
-    nextPageURL = [[NSString alloc] init];
+    self.dataArrayWithInsta = [[NSMutableArray alloc] init];
+    self.nextPageURL = [[NSString alloc] init];
     
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     toolbar.frame = CGRectMake(0, 0, self.view.frame.size.width, 44);
@@ -60,9 +61,9 @@
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     
-    pull = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *) _tableView];
-    [pull setDelegate:self];
-    [_tableView addSubview:pull];
+    self.pull = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *) _tableView];
+    [self.pull setDelegate:self];
+    [_tableView addSubview:self.pull];
     
     _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     _activityIndicatorView.hidesWhenStopped = YES;
@@ -87,7 +88,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return dataArrayWithInsta.count;
+    return self.dataArrayWithInsta.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -103,24 +104,24 @@
     
     int indexMy = indexPath.row;
     //если добрались до предпоследней ячейки, грузим еще данные
-    if (indexMy +2 == dataArrayWithInsta.count) {
+    if (indexMy +2 == self.dataArrayWithInsta.count) {
         [_activityIndicatorView startAnimating];
         [self getDataArrayWithInsta];
     }
     
-    ListInstaCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    ZAVListInstaCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[ListInstaCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[ZAVListInstaCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    [cell setDataInCellWithCurrentElement:dataArrayWithInsta[indexPath.row]];
+    [cell setDataInCellWithCurrentElement:self.dataArrayWithInsta[indexPath.row]];
   
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         
-    CurrentInstaVC *vc = [[CurrentInstaVC alloc] init];
-    vc.currentData = dataArrayWithInsta[indexPath.row];
+    ZAVCurrentInstaVC *vc = [[ZAVCurrentInstaVC alloc] init];
+    vc.currentData = self.dataArrayWithInsta[indexPath.row];
     [self presentViewController:vc animated:YES completion:nil];
 }
 
@@ -128,7 +129,7 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [userDefaults objectForKey:@"AccessToken"];
     
-    if (![Helper connectedToInternet]) {
+    if (![ZAVHelper connectedToInternet]) {
         
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"Entity" inManagedObjectContext:_managedObjectContext];
@@ -137,7 +138,7 @@
         NSError *error = nil;
         NSArray *fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
 
-        [dataArrayWithInsta addObjectsFromArray:fetchedObjects];
+        [self.dataArrayWithInsta addObjectsFromArray:fetchedObjects];
         
         [_activityIndicatorView stopAnimating];
         [_tableView setHidden:NO];
@@ -158,8 +159,8 @@
         [_managedObjectContext save:&saveError];
         
         NSString *urlString;
-        if (dataArrayWithInsta.count > 0 && ![dataArrayWithInsta[0] isKindOfClass:[Entity class]]) {
-            urlString = nextPageURL;
+        if (self.dataArrayWithInsta.count > 0 && ![self.dataArrayWithInsta[0] isKindOfClass:[Entity class]]) {
+            urlString = self.nextPageURL;
         } else {
             urlString =[NSString stringWithFormat:@"https://api.instagram.com/v1/users/self/feed?count=20&access_token=%@", token];
         }
@@ -195,13 +196,13 @@
                 
             }
             if ([JSON objectForKey:@"data"]) {
-                [dataArrayWithInsta addObjectsFromArray:[JSON objectForKey:@"data"]];
-                nextPageURL =  [JSON objectForKey:@"pagination"][@"next_url"];
+                [self.dataArrayWithInsta addObjectsFromArray:[JSON objectForKey:@"data"]];
+                self.nextPageURL =  [JSON objectForKey:@"pagination"][@"next_url"];
             }
 
-            [_activityIndicatorView stopAnimating];
-            [_tableView setHidden:NO];
-            [_tableView reloadData];
+            [self.activityIndicatorView stopAnimating];
+            [self.tableView setHidden:NO];
+            [self.tableView reloadData];
             
         } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
        
@@ -222,7 +223,7 @@
     }
     [userDefaults synchronize];
     
-    LoginVC *vc = [[LoginVC alloc] init];
+    ZAVLoginVC *vc = [[ZAVLoginVC alloc] init];
     [self presentViewController:vc animated:YES completion:nil];
 }
 
@@ -236,19 +237,19 @@
 
 - (void) reloadTableData
 {
-    if ([Helper connectedToInternet]) {
+    if ([ZAVHelper connectedToInternet]) {
         [self checkNotSendLikeOrDislike];
-        [_activityIndicatorView startAnimating];
-        [dataArrayWithInsta removeAllObjects];
+        [self.activityIndicatorView startAnimating];
+        [self.dataArrayWithInsta removeAllObjects];
         [self getDataArrayWithInsta];
-        [_tableView reloadData];
+        [self.tableView reloadData];
     }
-    [pull finishedLoading];
+    [self.pull finishedLoading];
 }
 
 - (void) checkNotSendLikeOrDislike {
     
-    if ([Helper connectedToInternet]) {
+    if ([ZAVHelper connectedToInternet]) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"LikeAndDislike" inManagedObjectContext:_managedObjectContext];
         [fetchRequest setEntity:entity];
