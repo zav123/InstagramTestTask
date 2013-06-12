@@ -8,7 +8,6 @@
 
 #import "Entity.h"
 
-
 @implementation Entity
 
 @dynamic from;

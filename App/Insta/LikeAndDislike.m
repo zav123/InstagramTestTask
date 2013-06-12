@@ -8,7 +8,6 @@
 
 #import "LikeAndDislike.h"
 
-
 @implementation LikeAndDislike
 
 @dynamic identifier;

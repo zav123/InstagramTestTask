@@ -34,7 +34,6 @@
         NSData* data = UIImagePNGRepresentation(image);
         [data writeToFile:path atomically:YES];
     }
-    
 }
 
 + (UIImage*)loadImagewithName:(NSString *)nameImage
